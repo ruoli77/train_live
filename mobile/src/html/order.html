@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/flexible.debug.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/flexible.debug.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
+    <script src="../js/mui.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<div class="order-wrap">
+    <header class="top-com">
+        <a class="mui-icon mui-icon-arrowleft back" href="javascript:history.go(-1)"></a>
+        付款结果
+    </header>
+
+    <section class="order-status-wrap">
+        <img src="../img/icon_right.png" alt="">
+        <p>付款成功</p>
+    </section>
+
+
+</div>
+
+<script>
+    $(function(){
+        var order_submit = $("#s-actionBar-container .buy")[0];
+        order_submit.addEventListener("tap",function(){
+            window.loacation.href = "";
+        });
+    })
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <title>Title</title>
+
+    <style>
+        #Video1{
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    function vidplay() {
+        var video = document.getElementById("Video1");
+        var button = document.getElementById("play");
+        if (video.paused) {
+            video.play();
+            button.textContent = "||";
+        } else {
+            video.pause();
+            button.textContent = ">";
+        }
+    }
+    function restart() {
+        var video = document.getElementById("Video1");
+        video.currentTime = 0;
+    }
+    function skip(value) {
+        var video = document.getElementById("Video1");
+        video.currentTime += value;
+    }
+</script>
+1231
+
+<video preload="auto" autoplay="true" webkit-playsinline="" playsinline="" x-webkit-airplay="allow" x5-video-orientation="undefined" src="blob:http://192.168.1.222:9001/93a86bb4-2aa3-4f1d-a15f-63e109d9522f" style="width: 360px; height: 623.077px;"></video>
+
+<video id="Video1" width="80%" height="">
+    // Replace these with your own video files.
+    <source src="movie.mp4" type="video/mp4" />
+    <source src="movie.ogg" type="video/ogg" />
+    HTML5 Video is required for this example.
+</video>
+<a href="movie.mp4">Download the video</a> file.
+
+<div id="buttonbar">
+    <button id="restart" onclick="restart();">[]</button>
+    <button id="rew" onclick="skip(-10)">&lt;&lt;</button>
+    <button id="play" onclick="vidplay()">&gt;</button>
+    <button id="fastFwd" onclick="skip(10)">&gt;&gt;</button>
+</div>
+
+</body>
+</html>

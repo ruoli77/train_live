@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>试卷编辑</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/main_train.css">
+    <script src="../js/flexible_css.debug.js"></script>
+    <script src="../js/flexible.debug.js"></script>
+</head>
+<body>
+<div id="back-btn-wrap">
+    <a class="back-btn" href="javascript:history.go(-1)"></a>试卷编辑
+</div>
+
+<div class="content-main">
+    <form action="" id="questions-form-wrap">
+        <section class="questions-wrap">
+            <div class="questions-item clearfix">
+                <span class="num-now-wrap">1、</span><div class="right-item"><textarea placeholder="请输入题目" name="" id=""></textarea></div>
+            </div>
+            <div class="option-item clearfix">
+                <span>A、</span><div class="right-item"><textarea placeholder="请输入选项A" name="" id=""></textarea></div>
+            </div>
+            <div class="option-item clearfix">
+                <span>B、</span><div class="right-item"><textarea placeholder="请输入选项B" name="" id=""></textarea></div>
+            </div>
+            <div class="option-item clearfix">
+                <span>C、</span><div class="right-item"><textarea placeholder="请输入选项C" name="" id=""></textarea></div>
+            </div>
+            <div class="options-wrap">
+                <span>正确答案：</span><label for="optionA">A</label><input type="radio" name="correct-options" id="optionA"><label for="optionB">B</label><input type="radio" name="correct-options" id="optionB"><label for="optionC">C</label><input type="radio" name="correct-options" id="optionC">
+            </div>
+        </section>
+        <button id="btn-next" class="btn1">下一题</button>
+        <p class="num-wrap"><i class="num-now">1</i><i>/50</i></p>
+        <button id="btn-submit" class="btn2">提交</button>
+    </form>
+</div>
+
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/mui.min.js"></script>
+
+<script>
+    $(function(){
+
+        $("#btn-next").on('click',function(e){
+            e.preventDefault();
+            var num_now = parseInt($(".num-now").html())+1;
+            if(num_now==50){
+                $("#btn-next").css('visibility','hidden');
+            }
+            $(".num-now").html(num_now);
+            $(".num-now-wrap").html(num_now+"、");
+            $('#questions-form-wrap')[0].reset();
+
+        });
+
+        $('#btn-submit').on('click',function(e){
+            e.preventDefault();
+        });
+
+    })
+</script>
+</body>
+</html>
+
+<script>
+//    $('html').style('font-size','window.screen.width/10');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

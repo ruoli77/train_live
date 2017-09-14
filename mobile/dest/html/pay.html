@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>付款详情</title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/flexible.debug.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/flexible.debug.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
+    <script src="../js/mui.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<div class="pay-wrap">
+    <header class="top-com">
+        <a class="mui-icon mui-icon-arrowleft back" href="javascript:history.go(-1)"></a>
+        付款详情
+    </header>
+    <ul class="pay-order-info">
+        <li>订单名称：CA BRIDA/嘉德丽亚2016秋冬甜美靓丽保暖棉绒睡裙</li>
+        <li>订单总价：￥990.00</li>
+    </ul>
+    <section class="pay-radio-wrap">
+        <div class="mui-input-row mui-radio">
+            <label>
+                <img class="icon_pay" src="../img/icon_pay1.png" alt="">
+                微信</label>
+            <input name="radio1" type="radio">
+        </div>
+        <div class="mui-input-row mui-radio">
+            <label>
+                <img class="icon_pay" src="../img/icon_pay2.png" alt="">
+                支付宝</label>
+            <input name="radio1" type="radio">
+        </div>
+        <div class="mui-input-row mui-radio">
+            <label>
+                <img class="icon_pay" src="../img/icon_pay3.png" alt="">
+                银联</label>
+            <input name="radio1" type="radio">
+        </div>
+    </section>
+
+
+
+
+</div>
+
+<a class="pay_ok_btn" href="passwordpay.html">确认支付</a>
+
+<script>
+    $(function(){
+        var order_submit = $("#s-actionBar-container .buy")[0];
+        order_submit.addEventListener("tap",function(){
+            window.loacation.href = "";
+        });
+    })
+</script>
+
+
+
+</body>
+</html>

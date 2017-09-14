@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>确认订单</title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/flexible.debug.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/flexible.debug.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
+    <script src="../js/mui.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body style="padding-bottom: 1.3rem">
+<div class="confirm-wrap">
+    <div class="order-address mui-flex align-center" id="address_1">
+        <div class="cell fixed align-center">
+            <div class="icon mui-icon mui-icon-location"></div>
+        </div>
+        <div class="cell content">
+            <div class="info">
+                <span>收货人：  </span>
+                <span>张三</span>
+                <span> </span>
+                <span class="tel">15097560517</span>
+            </div>
+            <div class="detail" id="addressTop">
+                <span>收货地址：</span>
+                <span></span>
+                <span>北京 </span>
+
+                <span>北京 </span>
+                <span>朝阳区 </span>
+                <span>东四环中路41号 </span>
+                <span>   嘉泰国际A座202 </span>
+            </div>
+            <!--<div class="ext" data-reactid=".0.1.$=1$home.$confirmOrder_1.$address_1.1.2">(收货不便时,可选择免费代收货服务)</div>-->
+        </div>
+        <div class="cell fixed align-center" >
+            <div class="nav mui-icon mui-icon-arrowright"></div>
+        </div>
+    </div>
+
+    <!--购买物品详细信息-->
+    <div class="order-orderInfo">
+        <header><h3>cabrida漪珊专卖店</h3></header>
+    </div>
+    <div class="order-product-info">
+        <img src="../img/pro_buy.jpg" alt="">
+        <div class="order-quantity ">
+            <div class="buy-single-row mui-flex align-center">
+                <div class="cell fixed">购买数量</div>
+                <div class="cell text-right">
+                    <div class="mui-numbox testInput" data-numbox-step='1' data-numbox-min='1' data-numbox-max='1'>
+                        <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+                        <input class="mui-numbox-input" type="number" />
+                        <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="buy-single-row mui-flex align-center">
+                <div class="cell fixed">配送方式</div>
+                <div class="cell text-right">
+                    快递 免邮
+                    <div class="nav mui-icon mui-icon-arrowright"></div>
+                </div>
+            </div>
+            <div class="buy-single-row mui-flex align-center">
+                <div class="cell fixed">运费险</div>
+                <div class="cell text-right">
+                    卖家送,确认收货前退货可赔
+                    <div class="nav mui-icon mui-icon-arrowright"></div>
+                </div>
+            </div>
+            <div class="buy-single-row mui-flex align-center" style="border: none;">
+                <div class="cell text-right">
+                    共一件，合计：￥990.00
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="s-actionBar-container">
+    <div id="s-actionbar" class="action-bar mui-flex align-center">
+        <button class="buy cell" style="">提交订单</button>
+    </div>
+</section>
+<script>
+    $(function(){
+        var order_submit = $("#s-actionBar-container .buy")[0];
+        order_submit.addEventListener("tap",function(){
+            window.location.href = "pay.html";
+        });
+    })
+</script>
+
+
+
+</body>
+</html>

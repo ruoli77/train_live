@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>试卷预览</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <script src="../js/flexible_css.debug.js"></script>
+    <script src="../js/flexible.debug.js"></script>
+    <link rel="stylesheet" href="../css/main_train.css">
+</head>
+<body>
+<div id="back-btn-wrap">
+    <a class="back-btn" href="javascript:history.go(-1)"></a>试卷预览
+</div>
+
+<div class="content-main">
+    <div class="answer-num-wrap">
+        <i class="questions-total fr">/32</i>
+        <i class="questions-cur fr">1</i>
+    </div>
+
+    <section class="questions-wrap choose-wrap">
+        <div class="questions-item clearfix">
+            <span class="num-now-wrap">1、</span><p class="question">题目题目题目题目题目题目题目题目题目题目题目？</p>
+        </div>
+        <div class="option-item clearfix" style="">
+            <span>A</span><p class="option-text">答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案</p>
+        </div>
+        <div class="option-item clearfix">
+            <span>B</span><p class="option-text">答案答案答案答案答案答案</p>
+        </div>
+        <div class="option-item clearfix">
+            <span>C</span><p class="option-text">答案答案答案答案答案答案</p>
+        </div>
+    </section>
+    <button id="btn-next" class="btn1">下一题</button>
+    <button id="btn-exit" class="btn1">退出答题</button>
+    <div class="btn-submit-wrap displayNone">
+        <button id="btn-submit" class="btn2">提交</button>
+    </div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/mui.min.js"></script>
+
+<script>
+    $(function(){
+        mui.init();
+        document.getElementById('btn-exit').addEventListener('tap',function(){
+            var btnArray = ['退出', '继续答题'];
+            mui.confirm('选择退出之前所答题目将全部清除，你确定退出吗', '退出答题', btnArray, function(e) {
+                if (e.index == 1) {
+//                    继续答题
+                } else {
+//                    回到上一页
+                }
+            });
+        });
+
+        document.getElementById('btn-next').addEventListener('tap',function(e){
+            e.preventDefault();
+            var num_now = parseInt($(".questions-cur").html())+1;
+            var num_total = parseInt($(".questions-total").html().slice(1,$(".questions-total").html().length));
+            if(num_now==2){
+                $("#btn-next").css('visibility','hidden');
+                $(".btn-submit-wrap").show();
+            }
+            $(".questions-cur").html(num_now);
+            $(".num-now-wrap").html(num_now+"、");
+            //加载下一道题目
+        });
+
+        document.getElementById('btn-submit').addEventListener('tap',function(e){
+            e.preventDefault();
+            var btnArray = ['继续答题', '确认提交'];
+            mui.confirm('','你还有题目未做答，确认提交？', btnArray, function(e) {
+                if (e.index == 1) {
+//                    提交
+                } else {
+//                    做题
+                }
+            });
+        });
+
+        $.each($(".option-item span"),function(){
+            var height_cur = $(this).parent('.option-item').height();
+            $(this).height(height_cur);
+            $(this).css('line-height',height_cur+'px');
+        });
+
+        /*document.getElementsByClassName('option-item').addEventListener('tap',function(){
+            if($(this).hasClass('active')){
+                $(this).removeClass('active');
+                $(this).children('span').removeClass('active');
+            }else {
+                $(this).addClass('active');
+                $(this).children('span').addClass('active');
+            }
+        });*/
+
+        $(".option-item").on('click',function(){
+            if($(this).hasClass('active')){
+                $(this).removeClass('active');
+                $(this).children('span').removeClass('active');
+            }else {
+                $(this).addClass('active');
+                $(this).children('span').addClass('active');
+            }
+        });
+
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
