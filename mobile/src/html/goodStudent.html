@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>优秀学员</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <script src="../js/flexible_css.debug.js"></script>
+    <script src="../js/flexible.debug.js"></script>
+    <link rel="stylesheet" href="../css/main_train.css">
+</head>
+<body>
+<div id="back-btn-wrap">
+    <a class="back-btn" href="javascript:history.go(-1)"></a>优秀学员
+</div>
+<div class="content-main">
+    <ul id="good-list-wrap">
+        <li class="parent-list">
+            <div class="parent-item">
+                <h3>课程名称课程名称</h3>
+                <p>共32题/100人 <i>前5名</i></p>
+            </div>
+            <ul class="child-list-wrap" style="">
+                <li class="child-list">
+                    <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
+                    <span>姓名</span>
+                    <span>部门</span>
+                    <span>答对32题目</span>
+                </li>
+                <li class="child-list">
+                    <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
+                    <span>姓名</span>
+                    <span>部门</span>
+                    <span>答对32题目</span>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+    <!--<ul id="good-list-wrap">
+        <li class="parent-list">
+            <div class="parent-item">
+                <h3>课程名称课程名称</h3>
+                <p>共32题/100人 <i>前5名</i></p>
+            </div>
+            <ul class="child-list-wrap displayNone" style="">
+                <li class="child-list">
+                    <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
+                    <span>姓名</span>
+                    <span>部门</span>
+                    <span>答对32题目</span>
+                </li>
+                <li class="child-list">
+                    <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
+                    <span>姓名</span>
+                    <span>部门</span>
+                    <span>答对32题目</span>
+                </li>
+            </ul>
+        </li>
+    </ul>-->
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script>
+    $(function(){
+        mui.init();
+         var swiper = new Swiper('.swiper-container', {
+             scrollbar: null,
+             scrollbarHide: true,
+             slidesPerView: 'auto',
+             centeredSlides: false,
+             spaceBetween: 8,
+             grabCursor: false,
+             momentumBounce:0
+         });
+
+
+        mui(".parent-list").on('tap','.parent-item',function(){
+            if($(this).hasClass('active')){
+                $(this).siblings('.child-list-wrap').hide();
+                $(this).removeClass('active');
+            }else {
+                $(this).addClass('active');
+                $(this).siblings('.child-list-wrap').show();
+                $(this).parent('.parent-list').siblings('.parent-list').find('.child-list-wrap').hide();
+                $(this).parent('.parent-list').siblings('.parent-list').find('.parent-item').removeClass('active');
+            }
+        });
+        mui(".parent-list").off('tap');
+
+
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
