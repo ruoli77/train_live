@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>论坛发帖</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <script src="../js/flexible_css.debug.js"></script>
+    <script src="../js/flexible.debug.js"></script>
+    <link rel="stylesheet" href="../css/main_train.css">
+
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div id="back-btn-wrap">
+    <a class="back-btn" href="javascript:history.go(-1)"></a>论坛发帖<a href="javascript:void(0)" class="btn-send">发布</a>
+</div>
+
+<div class="content-main">
+
+    <form action="" id="fs-wrap">
+        <textarea name="" id="title" placeholder="写个标题吧"></textarea>
+        <textarea name="" id="content" placeholder="你想发布的内容"></textarea>
+        <span class="upload-btn-wrap mui-icon-plusempty">
+            <input type="file">
+        </span>
+    </form>
+
+
+
+</div>
+
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/autosize.js"></script>
+
+<script>
+    $(function() {
+        mui.init();
+//        textarea  高度自适应
+        $('textarea').autosize();
+//        autosize(document.querySelectorAll('textarea'));
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

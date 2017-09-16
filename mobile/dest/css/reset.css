@@ -67,9 +67,7 @@ input[type='radio']{
     border-radius: 50%;
     border: 5px solid #444;
 }
-input[type='radio']:checked{
-    background: #444;
-}
+
 i{
     font-style: normal;
 }
