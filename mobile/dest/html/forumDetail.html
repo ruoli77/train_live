@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>论坛详情</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <script src="../js/asset/flexible_css.debug.js"></script>
+    <script src="../js/asset/flexible.debug.js"></script>
+    <link rel="stylesheet" href="../css/main_train.css">
+</head>
+<body>
+<div id="back-btn-wrap">
+    <a class="back-btn" href="javascript:history.go(-1)"></a>论坛详情<a href="forumSend.html" class="btn-edit mui-icon mui-icon-compose"></a>
+</div>
+
+<div class="content-main" id="fmDetail">
+   <h1 class="title">文章标题文章标题文章标题文章标题</h1>
+    <div class="top clearfix">
+        <span class="fl avatar" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
+        <div class="fl info">
+            <p>姓名</p>
+            <span>2016-45-78</span>
+        </div>
+        <i class="fr mui-icon mui-icon-chatbubble comment-num">1w+</i>
+    </div>
+    <p class="fm-content">
+        发布的内容发布的内容发布的内容发布的内容发布的内容发布的内容发布的内容发布的内容发布的内容发布的内容
+    </p>
+    <div class="fm-pic-wrap" style="margin: 10px;">
+        <img src="../img/icon-1.png" style="width: 100%;" alt="">
+    </div>
+
+    <div class="comments-wrap">
+        <p class="tips">全部回复</p>
+        <ul class="comments-list">
+            <li>
+                <span class="fl avatar" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
+                <div class="fl info">
+                    <p>姓名</p>
+                    <span>2017-12-45</span>
+                </div>
+                <p class="content-sub">
+                    评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容
+                </p>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="send-tool-wrap">
+    <input type="text">
+    <span class="">发送</span>
+</div>
+
+<script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/mui.min.js"></script>
+
+<script src="../js/asset/dropload.js"></script>
+
+<script>
+    $(function() {
+        mui.init();
+
+        //ios 键盘挡住input
+        var u = navigator.userAgent,
+                isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
+                isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        if(isiOS){
+            $(".send-tool-wrap input").focus(function(){
+                $(".send-tool-wrap").css({'bottom':'60%'})
+            });
+            $(".send-tool-wrap input").blur(function(){
+                $(".send-tool-wrap").css({'bottom':'0'})
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+        /*
+         http://blog.csdn.net/ani521smile/article/details/53861255$('.uireat').dropload({
+            scrollArea: window,
+            /!*domUp: {
+                domClass: "dropload-up",
+                domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+                domUpdate: '<div class="dropload-update">↑释放更新</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>刷新中...</div>'
+            },*!/
+            domDown: {
+                domClass: "dropload-down",
+                domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData: '<div class="dropload-noData">暂无数据</div>'
+            },
+            distance: 50,
+            threshold: "",
+            loadUpFn: function(me){
+                window.reload();
+                me.resetload();
+            },
+
+            loadDownFn: function(up){
+                up.lock();//up锁定下拉操作 down锁定上滑操作 不填全部锁定
+                up.noData();//没有更多数据
+
+
+                /!*$.ajax({
+
+                    lock(up/down);//up锁定下拉操作 down锁定上滑操作 不填全部锁定
+                    noData(true/false);//没有更多数据
+                });*!/
+
+//                me.resetload();
+
+            }
+
+        });
+
+
+        /!*$('.event-content-hot').dropload({
+            scrollArea : window,
+            /!*threshold:-1000,
+             autoLoad:false,*!/
+            domDown : {                                                          // 下方DOM
+                domNoData  : '< a href=" "><div class="uoolu-loading-rotate"><span class="loading-label" style="font-size:0.42rem;margin-top:0.2rem;color:#548cdf;">查看更多热门问题</span></div></ a>'
+            },
+            loadDownFn : function(me){
+                $.ajax({
+                    type: 'GET',
+                    url: '/ask/ajax?_token={{csrf_token();}}&oper=index_drop_hot&type=hot&order='+$(".hot-list:last").attr('order'),
+                    dataType: 'json',
+                    success: function(html){
+                        if(html.data){
+                            $(".hot-list:last").after(html.data);
+                            pictures();
+                            _dom.attr('disable',0);
+                        }else{
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                            //
+                        }
+                        me.resetload();
+                    },
+                    error: function(xhr, type){
+                        layer.msg('请求失败,请刷新');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            }
+        });*!/*/
+
+
+
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

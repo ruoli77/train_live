@@ -9,8 +9,8 @@
     <title>优秀学员</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/mui.min.css">
-    <script src="../js/flexible_css.debug.js"></script>
-    <script src="../js/flexible.debug.js"></script>
+    <script src="../js/asset/flexible_css.debug.js"></script>
+    <script src="../js/asset/flexible.debug.js"></script>
     <link rel="stylesheet" href="../css/main_train.css">
 </head>
 <body>
@@ -18,12 +18,9 @@
     <a class="back-btn" href="javascript:history.go(-1)"></a>优秀学员
 </div>
 <div class="content-main">
+    <h2 id="gs-title">2017年度&nbsp;共:100题</h2>
     <ul id="good-list-wrap">
         <li class="parent-list">
-            <div class="parent-item">
-                <h3>课程名称课程名称</h3>
-                <p>共32题/100人 <i>前5名</i></p>
-            </div>
             <ul class="child-list-wrap" style="">
                 <li class="child-list">
                     <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
@@ -41,6 +38,8 @@
         </li>
 
     </ul>
+
+    <!--包含二级内容-->
     <!--<ul id="good-list-wrap">
         <li class="parent-list">
             <div class="parent-item">
@@ -65,22 +64,11 @@
     </ul>-->
 </div>
 
-<script src="../js/jquery.min.js"></script>
-<script src="../js/mui.min.js"></script>
+<script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/mui.min.js"></script>
 <script>
     $(function(){
         mui.init();
-         var swiper = new Swiper('.swiper-container', {
-             scrollbar: null,
-             scrollbarHide: true,
-             slidesPerView: 'auto',
-             centeredSlides: false,
-             spaceBetween: 8,
-             grabCursor: false,
-             momentumBounce:0
-         });
-
-
         mui(".parent-list").on('tap','.parent-item',function(){
             if($(this).hasClass('active')){
                 $(this).siblings('.child-list-wrap').hide();
@@ -92,7 +80,7 @@
                 $(this).parent('.parent-list').siblings('.parent-list').find('.parent-item').removeClass('active');
             }
         });
-        mui(".parent-list").off('tap');
+        mui(".parent-list").off('tap'); //二级内容
 
 
     })

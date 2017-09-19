@@ -9,24 +9,90 @@
     <title>论坛发帖</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/mui.min.css">
-    <script src="../js/flexible_css.debug.js"></script>
-    <script src="../js/flexible.debug.js"></script>
+    <script src="../js/asset/flexible_css.debug.js"></script>
+    <script src="../js/asset/flexible.debug.js"></script>
     <link rel="stylesheet" href="../css/main_train.css">
 </head>
 <body>
 <div id="back-btn-wrap">
-    <a class="back-btn" href="javascript:history.go(-1)"></a>论坛发帖<a href="forumSend.html" class="btn-send">发帖</a>
+    <a class="back-btn" href="javascript:history.go(-1)"></a>论坛发帖<a href="forumSend.html" class="btn-edit mui-icon mui-icon-compose"></a>
 </div>
 
-<div class="content-main">
+<div class="content-main" id="forumListWrap">
+    <ul id="gr-forum-list">
+        <li class="item clearfix">
+            <a href="forumDetail.html?">
+                <div class="avatar-wrap fl">
+                    <img class="avatar" src="../img/icon-1.png" alt="">
+                </div>
+                <div class="list-right-wrap">
+                    <h3 class="clearfix">
+                        文章名称文章名称文章名称文章名称文章名称
+                        <!--<button class="btn4 fr">联系我</button>-->
+                    </h3>
+                    <p class="tips-wrap clearfix">
+                        <span>王小丫</span>
+                        <b>2017-9-22</b>
+                        <!--<b>1小时</b>
+                        <i>考试</i>
+                        <span class="fr">培训500人</span>-->
+                        <i class="fr mui-icon mui-icon-chatbubble comment-num">1w+</i>
 
+                    </p>
+                </div>
+            </a>
+        </li>
+        <li class="item clearfix">
+            <a href="forumDetail.html?">
+                <div class="avatar-wrap fl">
+                    <img class="avatar" src="../img/icon-1.png" alt="">
+                </div>
+                <div class="list-right-wrap">
+                    <h3 class="clearfix">
+                        文章名称文章名称文章名称文章名称文章名称
+                        <!--<button class="btn4 fr">联系我</button>-->
+                    </h3>
+                    <p class="tips-wrap clearfix">
+                        <span>王小丫</span>
+                        <b>2017-9-22</b>
+                        <!--<b>1小时</b>
+                        <i>考试</i>
+                        <span class="fr">培训500人</span>-->
+                        <i class="fr mui-icon mui-icon-chatbubble comment-num">123</i>
+
+                    </p>
+                </div>
+            </a>
+        </li>
+        <li class="item clearfix">
+            <a href="forumDetail.html?">
+                <div class="avatar-wrap fl">
+                    <img class="avatar" src="../img/icon-1.png" alt="">
+                </div>
+                <div class="list-right-wrap">
+                    <h3 class="clearfix">
+                        文章名称文章名称文章名称文章名称文章名称
+                        <!--<button class="btn4 fr">联系我</button>-->
+                    </h3>
+                    <p class="tips-wrap clearfix">
+                        <span>王小丫</span>
+                        <b>2017-9-22</b>
+                        <!--<b>1小时</b>
+                        <i>考试</i>
+                        <span class="fr">培训500人</span>-->
+                        <i class="fr mui-icon mui-icon-chatbubble comment-num">1254</i>
+
+                    </p>
+                </div>
+            </a>
+        </li>
+    </ul>
 </div>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/mui.min.js"></script>
+<script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/mui.min.js"></script>
 
 <script>
     $(function() {
-
         mui.init();
 
     })
