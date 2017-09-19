@@ -26,7 +26,7 @@
 
     <section class="questions-wrap choose-wrap">
         <div class="questions-item clearfix">
-            <span class="num-now-wrap">1、</span><p class="question">题目题目题目题目题目题目题目题目题目题目题目？</p>
+            <div><span class="num-now-wrap fl">1、</span></div><p class="question">题目题目题目题目题目题目题目题目题目题目题目？</p>
         </div>
         <div class="option-item clearfix" style="">
             <span>A</span><p class="option-text">答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案</p>
@@ -102,15 +102,15 @@
             }
         });*/
 
-        $(".option-item").on('click',function(){
-            if($(this).hasClass('active')){
-                $(this).removeClass('active');
-                $(this).children('span').removeClass('active');
-            }else {
-                $(this).addClass('active');
-                $(this).children('span').addClass('active');
-            }
-        });
+        /*$(".option-item").on('click',function(){
+            $(this).addClass('active').children('span').addClass('active');
+            $(this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
+        });*/
+
+        mui('.questions-wrap').on('tap','.option-item',function(){
+            $(this).addClass('active').children('span').addClass('active');
+            $(this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
+        })
 
     })
 </script>

@@ -20,7 +20,13 @@
 
 <div class="content-main">
     <form action="" id="questions-form-wrap">
-        <section class="questions-wrap">
+        <ul class="questions-wrap">
+            <li class="questions-item clearfix"><span class="fl">1</span> <textarea name="" id="" placeholder="编辑题目"></textarea></li>
+            <li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="" placeholder="编辑选项内容"></textarea></li>
+            <li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="" placeholder="编辑选项内容"></textarea></li>
+            <li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="" placeholder="编辑选项内容"></textarea></li>
+        </ul>
+        <!--<section class="questions-wrap">
             <div class="questions-item clearfix">
                 <span class="num-now-wrap">1、</span><div class="right-item"><textarea placeholder="请输入题目" name="" id=""></textarea></div>
             </div>
@@ -36,19 +42,27 @@
             <div class="options-wrap">
                 <span>正确答案：</span><label for="optionA">A</label><input type="radio" name="correct-options" id="optionA"><label for="optionB">B</label><input type="radio" name="correct-options" id="optionB"><label for="optionC">C</label><input type="radio" name="correct-options" id="optionC">
             </div>
-        </section>
+        </section>-->
+        <div class="options-wrap">
+            <span>正确答案：</span><label for="optionA">A</label><input type="radio" name="correct-options" id="optionA"><label for="optionB">B</label><input type="radio" name="correct-options" id="optionB"><label for="optionC">C</label><input type="radio" name="correct-options" id="optionC">
+        </div>
+
         <button id="btn-next" class="btn1">下一题</button>
         <p class="num-wrap"><i class="num-now">1</i><i>/50</i></p>
-        <button id="btn-submit" class="btn2">提交</button>
+        <div class="btn2-wrap">
+            <button id="btn-submit" class="btn2">提交</button>
+        </div>
     </form>
 </div>
 
 
 <script src="../js/asset/jquery.min.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/autosize.js"></script>
 
 <script>
     $(function(){
+        $('textarea').autosize();
 
         $("#btn-next").on('click',function(e){
             e.preventDefault();

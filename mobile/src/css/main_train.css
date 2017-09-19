@@ -48,22 +48,25 @@ html,body{
 .btn1{
     display: block;
     margin: 0 auto;
-    width: 316px;
-    height: 76px;/*px*/
-    line-height: 76px;/*px*/
-    border: 1px solid #bbb;/*no*/
-    border-radius: 5px;
-    font-size: 28px;/*px*/
+    width: 340px;
+    height: 88px;/*px*/
+    line-height: 88px;/*px*/
+    border: 1px solid #28d2b5;/*no*/
+    border-radius: 6px;/*no*/
+    font-size: 32px;/*px*/
+    color: #28d2b5;
+}
+.btn2-wrap{
+    padding:  0 10px;/*no*/
 }
 .btn2{
     display: block;
     width: 100%;
-    margin: 0 auto;
-    height: 76px;/*px*/
-    line-height: 76px;/*px*/
-    border: 1px solid #bbb;/*no*/
-    border-radius: 5px;
-    background: #59afff;
+    height: 88px;/*px*/
+    line-height: 88px;/*px*/
+    /*border: 1px solid #28d2b5;!*no*!*/
+    border-radius: 6px;/*no*/
+    background: #28d2b5;
     color: #fff;
     font-size: 30px;/*px*/
 }
@@ -77,6 +80,12 @@ html,body{
     border: 1px solid #28d2b5;/*no*/
     border-radius: 6px;/*no*/
 }
+
+button:enabled:active{
+    background-color: #34a995;
+    border: 1px solid #34a995;/*no*/
+}
+
 #back-btn-wrap{
     height: 44px;/*no*/
     line-height: 44px;/*no*/
@@ -120,57 +129,58 @@ html,body{
     font-size: 28px;/*px*/
 }
 #questions-form-wrap{
-    padding: 20px 10px 10px;/*no*/
+    padding: 10px 0;/*no*/
 }
 
-.questions-wrap{
+/*.questions-wrap{
 
 }
 .questions-wrap div span{
     vertical-align: top;
     float: left;
-    font-size: 32px;/*px*/
-    width: 30px;/*no*/
+    font-size: 32px;!*px*!
+    width: 30px;!*no*!
     text-align: center;
 }
 div.option-item span{
-    width: 30px;/*no*/
-    margin-left: 30px;/*no*/
+    width: 30px;!*no*!
+    margin-left: 30px;!*no*!
 }
 .questions-wrap div textarea{
     display: -webkit-box;
     box-sizing: border-box;
     width: 100%;
-    height: 100px;/*no*/
-    border: 1px solid #bbb;/*no*/
-    /*line-height: 1.5;*/
-    padding: 9px;/*no*/
-    font-size: 28px;/*px*/
+    height: 100px;!*no*!
+    border: 1px solid #bbb;!*no*!
+    !*line-height: 1.5;*!
+    padding: 9px;!*no*!
+    font-size: 28px;!*px*!
 }
 .questions-wrap div.option-item textarea{
-    height: 35px;/*no*/
-    padding: 6px;/*no*/
+    height: 35px;!*no*!
+    padding: 6px;!*no*!
 }
 .questions-item{
-    margin-bottom: 32px;/*px*/
+    margin-bottom: 32px;!*px*!
 }
 .questions-item .right-item{
-    margin-left: 30px;/*no*/
+    margin-left: 30px;!*no*!
 }
 .option-item .right-item{
-    margin-left: 60px;/*no*/
+    margin-left: 60px;!*no*!
 }
 
 .option-item{
     margin-bottom: 20px;
-}
+}*/
 .options-wrap{
-    margin: 60px 0 100px 0;/*px*/
+    margin: 60px 0 100px 20px;/*px*/
 }
 .options-wrap label{
     display: inline-block;
-    font-size: 28px; /*px*/
+    font-size: 30px; /*px*/
     vertical-align: middle;
+    color: #1e1e1e;
 }
 .questions-wrap div.options-wrap span{
     float: none;
@@ -179,14 +189,55 @@ div.option-item span{
     padding-right: 24px;
 }
 .options-wrap input{
+    border: none;
     margin: 0 70px 0 8px;
-    width: 18px;/*no*/
-    height: 18px;/*no*/
+}
+.options-wrap input:before{
+   /* margin: 0 70px 0 8px;
+    width: 20px;!*no*!
+    height: 20px;!*no*!
     vertical-align: middle;
-    border: 3px solid #444;/*no*/
+    border: 1px solid #444;!*no*!*/
+    font-family: Muiicons;
+    font-size: 24px;/*no*/
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    color: #aaa;
+    border-radius: 0;
+    background: 0 0;
+    -webkit-font-smoothing: antialiased;
+    content: '\e411';
+    vertical-align: middle;
 }
 
+.options-wrap input[type=radio]:checked:before{
+    content: '\e441';
+    color: #007aff;
 
+}
+
+.questions-wrap{
+    padding-left: 10px;/*no*/
+}
+.questions-wrap li{
+    min-height: 86px;/*px*/
+    line-height: 86px;/*px*/
+    border-bottom: 1px solid #eee;/*no*/
+    display: flex;
+    display: -webkit-flex;
+    align-items: flex-start;
+}
+.questions-wrap li span{
+    /*flex: 1;*/
+    width: 40px;/*px*/
+}
+.questions-wrap li textarea{
+    padding: 12px 4px 6px;/*no*/
+    height: 36px;/*no*/
+    border: none;
+    max-height: 160px;/*px*/
+}
 
 #btn-next{
 
@@ -213,35 +264,52 @@ p.num-wrap i{
 }
 .choose-wrap{
     margin-bottom: 100px;/*px*/
+    padding-right: 10px;/*no*/
 }
 .choose-wrap .questions-item{
-    padding: 20px;/*px*/
+    padding: 20px 0;/*px*/
 }
 .choose-wrap .questions-item p.question{
     font-size: 32px;/*px*/
     margin-left: 60px;/*px*/
 }
 .choose-wrap .option-item{
-    margin-left: 80px;/*px*/
-    margin-right: 80px;/*px*/
+    margin-right: 20px;/*px*/
     margin-bottom: 22px;/*px*/
     font-size: 32px;/*px*/
     border: 1px solid #bbb;/*no*/
+    border-radius: 6px;/*no*/
 }
 .choose-wrap div.active{
-    border: 1px solid #59afff;/*no*/
+    border: 1px solid #28d2b5;/*no*/
 }
+
+.choose-wrap .option-item{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    overflow: hidden;
+}
+
 .choose-wrap .option-item span.active{
     color: #fff;
-    background: #59afff;
+    background: #28d2b5;
 }
 .choose-wrap .option-item span{
+    display: inline-block;
     margin-left: 0;
-    width: 76px;
+    min-width: 76px;/*px*/
+    height: 100%;
+    text-align: center;
+    color: #28d2b5;
+}
+.option-item.active p.option-text{
+    border-left: 1px solid #fff;
 }
 p.option-text{
-    margin-left: 76px;
-    padding: 20px;/*px*/
+    padding: 0 20px;/*px*/
+    border-left: 1px solid #ccc;
+    margin: 16px 0;/*px*/
 }
 #btn-exit{
     margin-top: 22px;/*px*/
