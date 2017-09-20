@@ -15,32 +15,16 @@ jQuery.extend({
 
     //ajax扩展
     JsonRpc: function(param, successFunc, async) {
-        /*  param.data.udid="12";
-         param.data.token='e661ac84b480997cbf24fe9a9bc5c9d861c19812';
-         */
-
-        //登录后有param_c的参数，从cookie取出来
-
-        var login_cookie = $.cookie("get", {
-            name: 'login'
-        });
-
-        login_cookie = $.parseJSON(login_cookie);
-
-        var param_c = {
-          /*  udid: '12',
-            token: 'e661ac84b480997cbf24fe9a9bc5c9d861c19812',*/
-            udid:login_cookie.data.udid,
-            token: login_cookie.token
+        var param_public = {
+            token:'DjdRYlA7VDBcNw1qVWEHagtjBDYFYA==',
+            channel:'100086-59bf7148'
         };
-
-        param = {
-            url: param.url,
-            data: $.extend(param.data, param_c)
-        };
+        //var url = 'http://192.168.1.111:8090/v001/'+param.postData;
+        var url = 'http://train.api.livestaring.com/v001/'+param.postData;
+        param = $.extend(param.data,param_public);
         $.ajax({
             type: "post",
-            url: 'postData',
+            url: url,
             datatype: "JSON",
             data: param,
             async: async != false,
@@ -49,25 +33,16 @@ jQuery.extend({
                     successFunc(obj);
                 } else {
                     try{
-                        //window.location.href = urll;
+                        //window.location.href = urll;\
+                        var arr = obj.split('<link');
+                        obj = arr[0];
                         var response = $.parseJSON(obj);
-                        if (response.code == 300) {
-                            //清除浏览器缓存数据 跳转登录页面，
-                            /*$.cookie("delete", {
-                                name: 'login'
+                        if(response.code == 400){
+                            mui.alert(response.data.message,' ',function(){
                             });
-                            var login_flag = $.cookie("exist", {
-                                name: 'login_flag'
-                            });
-                            if(login_flag){
-                                $.cookie("delete", {
-                                    name: 'login_flag'
-                                });
-                            }
-                            localStorage.clear();*/
-                            window.location.href = "../../Login/index.html";
                             return false;
-                        }else if(response.code == 500){
+                        }
+                       if(response.code == 500){
                             alert("服务器错误，请刷新重试");
                             return false;
                         }

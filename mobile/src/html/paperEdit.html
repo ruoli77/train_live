@@ -19,12 +19,12 @@
 </div>
 
 <div class="content-main">
-    <form action="" id="questions-form-wrap">
+    <form action="" id="questions-form-wrap" onsubmit="return false;">
         <ul class="questions-wrap">
-            <li class="questions-item clearfix"><span class="fl">1</span> <textarea name="" id="" placeholder="编辑题目"></textarea></li>
-            <li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="" placeholder="编辑选项内容"></textarea></li>
-            <li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="" placeholder="编辑选项内容"></textarea></li>
-            <li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="" placeholder="编辑选项内容"></textarea></li>
+            <li class="questions-item clearfix"><span class="fl">1</span> <textarea name="" id="question" placeholder="编辑题目"></textarea></li>
+            <li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="contentA" placeholder="编辑选项内容"></textarea></li>
+            <li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="contentB" placeholder="编辑选项内容"></textarea></li>
+            <li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="contentC" placeholder="编辑选项内容"></textarea></li>
         </ul>
         <!--<section class="questions-wrap">
             <div class="questions-item clearfix">
@@ -44,28 +44,70 @@
             </div>
         </section>-->
         <div class="options-wrap">
-            <span>正确答案：</span><label for="optionA">A</label><input type="radio" name="correct-options" id="optionA"><label for="optionB">B</label><input type="radio" name="correct-options" id="optionB"><label for="optionC">C</label><input type="radio" name="correct-options" id="optionC">
+            <span>正确答案：</span><label for="optionA">A</label><input type="radio" value="1" name="correct-options" id="optionA"><label for="optionB">B</label><input value="2" type="radio" name="correct-options" id="optionB"><label for="optionC">C</label><input value="3" type="radio" name="correct-options" id="optionC">
         </div>
 
         <button id="btn-next" class="btn1">下一题</button>
         <p class="num-wrap"><i class="num-now">1</i><i>/50</i></p>
         <div class="btn2-wrap">
-            <button id="btn-submit" class="btn2">提交</button>
+            <button id="btn-submit" class="btn2" onclick="">提交</button>
         </div>
     </form>
+
+
 </div>
 
 
 <script src="../js/asset/jquery.min.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
 <script src="../js/asset/autosize.js"></script>
 
 <script>
     $(function(){
-        $('textarea').autosize();
+        mui.init();
 
-        $("#btn-next").on('click',function(e){
+        function exitEdit(e){
             e.preventDefault();
+            var btnArray = ['确定', '取消'];
+            mui.confirm('题目尚未提交，退出将会清楚所有编辑，你确定退出吗', '退出编辑', btnArray, function(e) {
+                if (e.index == 1) {
+//                    继续答题
+                } else {
+//                    回到app
+//                    回到上一页
+                }
+            });
+        }
+//        $(".back-btn").on('click',exitEdit);
+
+        $('textarea').autosize();
+        document.getElementById('btn-next').addEventListener('click',function(e){
+            e.preventDefault();
+            var postdata = 'Question/add';
+            questionSubmit(postdata,subSubmit);
+        });
+
+        document.getElementById('btn-submit').addEventListener('click',function(e){
+            e.preventDefault();
+            var postdata = 'Question/addPost';
+            questionSubmit(postdata,allSubmit);
+        });
+
+        function questionSubmit(postdata,submitFun){
+            var param = {
+                postData:postdata,
+                data: {
+                    topic:$('#question').val(),
+                    option_a:$('#contentA').val(),
+                    option_b:$('#contentB').val(),
+                    option_c:$('#contentC').val(),
+                    option:$('input[name=correct-options]:checked').val()
+                }
+            };
+            $.JsonRpc(param,submitFun);
+        }
+        function subSubmit(result){
             var num_now = parseInt($(".num-now").html())+1;
             if(num_now==50){
                 $("#btn-next").css('visibility','hidden');
@@ -73,12 +115,30 @@
             $(".num-now").html(num_now);
             $(".num-now-wrap").html(num_now+"、");
             $('#questions-form-wrap')[0].reset();
+            $(".questions-wrap").html(
+                    '<li class="questions-item clearfix"><span class="fl">'+(parseInt(result.data.count)+1)+'</span> <textarea name="" id="question" placeholder="编辑题目"></textarea></li>'+
+                    '<li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="contentA" placeholder="编辑选项内容"></textarea></li>'+
+                    '<li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="contentB" placeholder="编辑选项内容"></textarea></li>'+
+                    '<li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="contentC" placeholder="编辑选项内容"></textarea></li>');
+            $('textarea').autosize();
+        }
+        function allSubmit(result){
+            console.log(result);
+            if(result.code==200){
+                mui.toast(result.data.message);
+                $('#questions-form-wrap')[0].reset();
+                $(".questions-wrap").html(
+                        '<li class="questions-item clearfix"><span class="fl">'+1+'</span> <textarea name="" id="question" placeholder="编辑题目"></textarea></li>'+
+                        '<li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="contentA" placeholder="编辑选项内容"></textarea></li>'+
+                        '<li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="contentB" placeholder="编辑选项内容"></textarea></li>'+
+                        '<li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="contentC" placeholder="编辑选项内容"></textarea></li>');
 
-        });
+            }
+        }
 
-        $('#btn-submit').on('click',function(e){
-            e.preventDefault();
-        });
+
+
+
 
     })
 </script>

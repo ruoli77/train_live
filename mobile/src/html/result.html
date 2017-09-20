@@ -21,79 +21,11 @@
     <div class="re-wrap">
         <p class="tips">你答对了</p>
         <div class="percent">
-            <i class="correct-num">31</i><i class="total-num">/32题</i>
+            <i class="correct_num">31</i><i class="total-num">/32题</i>
         </div>
 
         <section class="re-show-wrap clearfix">
-            <div class="item">
-                <b>1</b>
-            </div>
-            <div class="item">
-                <b class="mistake">1</b>
-            </div>
-            <div class="item">
-                <b>1</b>
-            </div>
-            <div class="item">
-                <b>1</b>
-            </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div>
-            <div class="item">
-                <b>1</b>
-            </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div><div class="item">
-            <b>1</b>
-        </div>
+
         </section>
         <button class="btn3">退出</button>
     </div>
@@ -106,11 +38,40 @@
 
 <script src="../js/asset/jquery.min.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
+
 <script>
     $(function(){
         mui.init();
 
+        var param = {
+            postData:'Question/results',
+            data: {
+                channel:''
+            }
+        };
+        $.JsonRpc(param,function(result){
+            console.log(result.data);
+            var data = result.data;
+            var question_num = data.length;
+            var correct_num = 0;
+            $.each(data,function(i){
+                if(data[i].q_option==data[i].y_option){
+                    correct_num +=1;
+                    $('<div class="item"><b>'+(parseInt(i)+1)+'</b></div>').appendTo(".re-show-wrap");
+                }else {
+                    $('<div class="item"><b class="mistake">'+(parseInt(i)+1)+'</b></div>').appendTo(".re-show-wrap");
+                }
 
+            });
+//            $('.correct_num').html(correct_num);
+//            $('.total-num').html('/'+question_num+'题');
+
+        });
+
+        $(".back-btn").on('click',function(){
+            backApp(2);
+        });
     });
 </script>
 </body>

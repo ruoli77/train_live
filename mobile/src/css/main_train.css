@@ -90,7 +90,8 @@ button:enabled:active{
     height: 44px;/*no*/
     line-height: 44px;/*no*/
     padding-top: 20px;/*no*/
-    background: #28d2b5; color: #fff;
+    /*background: #28d2b5; */
+    color: #fff;
     font-size: 40px;/*px*/
     text-align: center;
     /*position: relative;*/
@@ -100,6 +101,11 @@ button:enabled:active{
     left: 0;
     z-index: 1;
     box-sizing: content-box;
+    background: url("../img/top-bg.png") no-repeat center;
+    background-size: cover;
+}
+#back-btn-wrap a:active{
+    color: #fff;
 }
 #back-btn-wrap .back-btn{
     position: absolute;
@@ -191,6 +197,7 @@ div.option-item span{
 .options-wrap input{
     border: none;
     margin: 0 70px 0 8px;
+    background: none;
 }
 .options-wrap input:before{
    /* margin: 0 70px 0 8px;
@@ -209,6 +216,9 @@ div.option-item span{
     -webkit-font-smoothing: antialiased;
     content: '\e411';
     vertical-align: middle;
+
+    background: none;
+
 }
 
 .options-wrap input[type=radio]:checked:before{
@@ -274,11 +284,11 @@ p.num-wrap i{
     margin-left: 60px;/*px*/
 }
 .choose-wrap .option-item{
-    margin-right: 20px;/*px*/
     margin-bottom: 22px;/*px*/
     font-size: 32px;/*px*/
     border: 1px solid #bbb;/*no*/
     border-radius: 6px;/*no*/
+    min-height: 78px;/*px*/
 }
 .choose-wrap div.active{
     border: 1px solid #28d2b5;/*no*/
@@ -317,6 +327,10 @@ p.option-text{
 /*答题卡*/
 .re-wrap{
     padding: 0 10px;/*no*/
+}
+
+.correct_num{
+    font-size: 80px;/*px*/
 }
 .re-wrap p.tips{
     margin: 10px 10px 0;/*no*/
@@ -372,7 +386,7 @@ p.option-text{
 
 }
 .btn-submit-wrap{
-    margin-top: 100px;/*px*/
+    /*margin-top: 100px;!*px*!*/
     padding: 10px;/*no*/
 }
 .gr-top-wrap{
@@ -390,6 +404,9 @@ p.option-text{
 .gr-top-wrap a img{
     width: 102px;/*px*/
     /*height: 122px;!*px*!*/
+}
+.gr-top-wrap a p{
+    color: #108cee;
 }
 .gr-mid-wrap h2,.gr-bot-wrap h2{
     text-align: center;
@@ -420,7 +437,13 @@ p.option-text{
 }
 #gr-forum-list li i.comment-num:before{
     font-size: 40px;/*px*/
-    margin-right: 10px;/*px*/
+    content: '';
+    display: inline-block;
+    width: 44px;/*px*/
+    height: 44px;/*px*/
+    background: url("../img/icon-msg.png") no-repeat;
+    background-size: cover;
+    vertical-align: middle;
 }
 .avatar-wrap{
     width: 88px;/*px*/
@@ -532,7 +555,7 @@ p.option-text{
     line-height: 110px;/*px*/
     border-bottom: 1px solid #e8e6e8;/*no*/
     position: relative;
-    padding-left: 98px;/*px*/
+    padding:0 20px 0 110px;/*px*/
 
 
 }
@@ -732,9 +755,10 @@ p.option-text{
     width: 160px;/*px*/
     height: 160px;/*px*/
     text-align: center;
-    border: 1px dashed #bbb;/*no*/
     position: relative;
     margin-top: 20px;/*px*/
+    background: url("../img/icon-upload.png") no-repeat;
+    background-size: cover;
 
 }
 #fs-wrap .upload-btn-wrap:before{
@@ -791,6 +815,7 @@ p.option-text{
 
 }
 
+/*帖子详情*/
 #fmDetail{
     padding: 128px 0 120px;/*px*/
 }
@@ -831,13 +856,28 @@ p.option-text{
 }
 #fmDetail .top i.comment-num:before{
     font-size: 60px;/*px*/
-    margin-right: 10px;/*px*/
+    content: '';
+    display: inline-block;
+    width: 60px;/*px*/
+    height: 60px;/*px*/
+    background: url("../img/icon-msg.png") no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+
 }
 #fmDetail .fm-content{
     padding: 0 10px;/*no*/
     color: #1e1e1e;
     line-height: 1.5;
 }
+#fmDetail .fm-pic-wrap{
+    margin: 10px;/*no*/
+}
+#fmDetail .fm-pic-wrap img{
+    width: 100%;
+    border: 1px solid #eee;
+}
+
 .comments-list{
     padding: 0 10px;/*no*/
 }

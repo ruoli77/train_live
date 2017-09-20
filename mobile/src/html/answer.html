@@ -20,25 +20,25 @@
 
 <div class="content-main">
     <div class="answer-num-wrap">
-        <i class="questions-total fr">/32</i>
-        <i class="questions-cur fr">1</i>
+        <i class="questions-total fr"></i>
+        <i class="questions-cur fr"></i>
     </div>
 
     <section class="questions-wrap choose-wrap">
         <div class="questions-item clearfix">
-            <div><span class="num-now-wrap fl">1、</span></div><p class="question">题目题目题目题目题目题目题目题目题目题目题目？</p>
+            <div><span class="num-now-wrap fl">1、</span></div><p class="question"></p>
         </div>
         <div class="option-item clearfix" style="">
-            <span>A</span><p class="option-text">答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案</p>
+            <span>A</span><p class="option-text"></p>
         </div>
         <div class="option-item clearfix">
-            <span>B</span><p class="option-text">答案答案答案答案答案答案</p>
+            <span>B</span><p class="option-text"></p>
         </div>
         <div class="option-item clearfix">
-            <span>C</span><p class="option-text">答案答案答案答案答案答案</p>
+            <span>C</span><p class="option-text"></p>
         </div>
     </section>
-    <button id="btn-next" class="btn1">下一题</button>
+    <button id="btn-next" class="btn1" now-page = '1'>下一题</button>
     <button id="btn-exit" class="btn1">退出答题</button>
     <div class="btn-submit-wrap displayNone">
         <button id="btn-submit" class="btn2">提交</button>
@@ -46,72 +46,180 @@
 </div>
 <script src="../js/asset/jquery.min.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
+<!--<script src="../js/asset/vue.js"></script>-->
+
 
 <script>
     $(function(){
         mui.init();
-        document.getElementById('btn-exit').addEventListener('tap',function(){
+        function exitAnswer(e){
+            e.preventDefault();
             var btnArray = ['退出', '继续答题'];
             mui.confirm('选择退出之前所答题目将全部清除，你确定退出吗', '退出答题', btnArray, function(e) {
                 if (e.index == 1) {
 //                    继续答题
                 } else {
+//                    回到app
 //                    回到上一页
                 }
             });
+        }
+        document.getElementById('btn-exit').addEventListener('tap',exitAnswer);
+        $(".back-btn").on('click',exitAnswer);
+
+        mui('.questions-wrap').on('tap','.option-item',function(){
+            $(this).addClass('active').children('span').addClass('active');
+            $(this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
         });
 
-        document.getElementById('btn-next').addEventListener('tap',function(e){
+        var question_arr = [],
+                answers = [],//答案数组
+                btn_next = $('#btn-next'),
+                nowpage = $(btn_next).attr('now-page'),
+                questions_cur = $('.questions-cur'),
+                questions_wrap = $('.questions-wrap'),
+                questions_total = $('.questions-total'),
+                option_item = $('.option-item'),
+                btn_submit = $('#btn-submit');
+
+        function getQuestion(page){
+            var param = {
+                postData:'Question/lists',
+                data: {
+                    page:page
+                }
+            };
+            $.JsonRpc(param,function(result){
+//                console.log(result);
+                if(result.data.answer){
+                    // 跳到答题卡
+                    window.location.href = 'result.html';
+                    return false;
+                }
+                question_arr.push(result.data.lists[0]);
+                var nowpage = btn_next.attr('now-page');
+                if(page==nowpage){
+                    if(page==1){
+                        questions_total.html('/'+result.data.count);
+                        btn_next.attr('total-page',result.data.count);
+                    }
+                    showQuestion(page);
+                }
+            });
+        }
+
+        getQuestion(nowpage);
+        getQuestion(2);
+
+        function showQuestion(page){
+            var k = page-1;
+            if(!question_arr[k]){
+                getQuestion(page);
+            }
+            questions_cur.html(page);
+            btn_next.attr('qid',question_arr[k].qid);
+            questions_wrap.html(
+                    '<div class="questions-item clearfix">'+
+                    '<div><span class="num-now-wrap fl">'+page+'、</span></div><p class="question">'+question_arr[k].topic+'？</p>'+
+                    '</div>'+
+                    '<div class="option-item clearfix" style="">'+
+                    '<span>A</span><p class="option-text">'+question_arr[k].option_a+'</p>'+
+                    '</div>'+
+                    '<div class="option-item clearfix">'+
+                    '<span>B</span><p class="option-text">'+question_arr[k].option_b+'</p>'+
+                    '</div>'+
+                    '<div class="option-item clearfix">'+
+                    '<span>C</span><p class="option-text">'+question_arr[k].option_c+'</p>'+
+                    '</div>'
+            );
+            $.each($(".option-item span"),function(){
+                var height_cur = $(this).parent('.option-item').height();
+                $(this).height(height_cur);
+                $(this).css('line-height',height_cur+'px');
+            });
+        }
+
+        btn_next[0].addEventListener('tap',function(e){
             e.preventDefault();
-            var num_now = parseInt($(".questions-cur").html())+1;
-            var num_total = parseInt($(".questions-total").html().slice(1,$(".questions-total").html().length));
-            if(num_now==2){
+            if(!$('.option-item').hasClass('active')){
+                mui.alert('请选择一个选项', ' ', function(e) {
+                });
+                return false;
+            }
+            var qid = $(this).attr('qid');
+            var option = parseInt($('.option-item').index($('.active')))+1;
+            answers.push({'qid':qid,'option':option});
+            var nowpage = parseInt(btn_next.attr('now-page'))+1;
+            btn_next.attr('now-page',nowpage);
+            showQuestion(nowpage);
+            if(nowpage==btn_next.attr('total-page')){
                 $("#btn-next").css('visibility','hidden');
                 $(".btn-submit-wrap").show();
+                return false;
             }
-            $(".questions-cur").html(num_now);
-            $(".num-now-wrap").html(num_now+"、");
-            //加载下一道题目
+            getQuestion(parseInt(nowpage)+1);
         });
 
-        document.getElementById('btn-submit').addEventListener('tap',function(e){
+        btn_submit[0].addEventListener('tap',function(e){
             e.preventDefault();
-            var btnArray = ['继续答题', '确认提交'];
+            if(!$('.option-item').hasClass('active')){
+                mui.alert('请选择一个选项', ' ', function(e) {
+                });
+                return false;
+            }
+            var qid = btn_next.attr('qid');
+            var option = parseInt($('.option-item').index($('.active')))+1;
+            answers.push({'qid':qid,'option':option});
+
+            var req = {
+                postData:'Question/answer',
+                data: {
+                    result:JSON.stringify(answers)
+                }
+            };
+            $.JsonRpc(req,function(result){
+                console.log(result);
+                mui.alert('试卷提交成功', ' ', function(e) {
+                    window.location.href = 'result.html';
+                });
+            });
+
+            /*var btnArray = ['继续答题', '确认提交'];
             mui.confirm('','你还有题目未做答，确认提交？', btnArray, function(e) {
                 if (e.index == 1) {
 //                    提交
                 } else {
 //                    做题
                 }
-            });
+            });*/
         });
 
-        $.each($(".option-item span"),function(){
-            var height_cur = $(this).parent('.option-item').height();
-            $(this).height(height_cur);
-            $(this).css('line-height',height_cur+'px');
-        });
 
-        /*document.getElementsByClassName('option-item').addEventListener('tap',function(){
-            if($(this).hasClass('active')){
-                $(this).removeClass('active');
-                $(this).children('span').removeClass('active');
-            }else {
-                $(this).addClass('active');
-                $(this).children('span').addClass('active');
-            }
-        });*/
 
-        /*$(".option-item").on('click',function(){
-            $(this).addClass('active').children('span').addClass('active');
-            $(this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
-        });*/
 
-        mui('.questions-wrap').on('tap','.option-item',function(){
-            $(this).addClass('active').children('span').addClass('active');
-            $(this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
-        })
 
+        /*var vm =
+            new Vue({
+                el: '.content-main',
+                data: {data:""},
+
+                beforeCreate:function(){
+                    var _self=this;
+                    var param = {
+                        postData:'v001/Question/lists',
+                        data: {
+                            page:2
+                        }
+                    };
+                    $.JsonRpc(param,function(result){
+                        _self.data= result ;
+                        console.log(result);
+
+                    });
+                }
+
+            });*/
     })
 </script>
 </body>

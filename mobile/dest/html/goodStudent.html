@@ -15,7 +15,7 @@
 </head>
 <body>
 <div id="back-btn-wrap">
-    <a class="back-btn" href="javascript:history.go(-1)"></a>优秀学员
+    <a class="back-btn" href="javascript:history.go(-1)"></a><i id="nav-title"></i>
 </div>
 <div class="content-main">
     <h2 id="gs-title">2017年度&nbsp;共:100题</h2>
@@ -27,12 +27,14 @@
                     <span>姓名</span>
                     <span>部门</span>
                     <span>答对32题目</span>
+                    <i class="fr rank">1</i>
                 </li>
                 <li class="child-list">
                     <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
                     <span>姓名</span>
                     <span>部门</span>
                     <span>答对32题目</span>
+                    <i class="fr rank">2</i>
                 </li>
             </ul>
         </li>
@@ -65,10 +67,14 @@
 </div>
 
 <script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
+
 <script>
     $(function(){
         mui.init();
+
         mui(".parent-list").on('tap','.parent-item',function(){
             if($(this).hasClass('active')){
                 $(this).siblings('.child-list-wrap').hide();
@@ -81,6 +87,13 @@
             }
         });
         mui(".parent-list").off('tap'); //二级内容
+
+        var rank = iService.getQueryString('rank');
+        if(rank){
+            $('#nav-title').html('成绩排名');
+        }else {
+            $('#nav-title').html('优秀学员');
+        }
 
 
     })
