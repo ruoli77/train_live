@@ -21,7 +21,7 @@
     <div class="re-wrap">
         <p class="tips">你答对了</p>
         <div class="percent">
-            <i class="correct_num">31</i><i class="total-num">/32题</i>
+            <i class="correct_num"></i><i class="total-num"></i>
         </div>
 
         <section class="re-show-wrap clearfix">
@@ -44,10 +44,11 @@
     $(function(){
         mui.init();
 
+        var llid = 1;//由app传过来  可以通过url传参获取
         var param = {
             postData:'Question/results',
             data: {
-                channel:''
+                llid:llid
             }
         };
         $.JsonRpc(param,function(result){
@@ -64,8 +65,8 @@
                 }
 
             });
-//            $('.correct_num').html(correct_num);
-//            $('.total-num').html('/'+question_num+'题');
+            $('.correct_num').html(correct_num);
+            $('.total-num').html('/'+question_num+'题');
 
         });
 

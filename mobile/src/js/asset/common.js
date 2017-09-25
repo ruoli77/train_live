@@ -3,133 +3,16 @@
  */
 
 var iService = function(){
-    var headerMove = function(index){
-        var nav = $("#headerWrapper ul li.nav_click");
-        nav.eq(index).children("a").addClass("active").siblings("i").removeClass("displayNone");
-        nav.hover(function(){
-            $(this).children("a").siblings("i").stop().removeClass("displayNone");
-            $(this).children("a").addClass("active");
-            //$(this).siblings("i").stop().fadeIn("fast").animateCss("fadeInDown");
-        },function(){
-            $(this).children("a").siblings("i").stop().addClass("displayNone");
-            $(this).children("a").removeClass("active");
-            nav.eq(index).children("a").addClass("active").siblings("i").removeClass("displayNone");
-        });
-        var addr_info = nav.eq(index).html();
-        if(index==6){
-            addr_info = "消息中心";
-            $("#icon_message").addClass("ic_message");
-        }else if(index==7){
-            addr_info = "个人中心";
-        }
-        if(index!=6){
-            $("#icon_message").parent("li").hover(function(){
-                $(this).children("#icon_message").addClass("ic_message");
-            },function(){
-                $(this).children("#icon_message").removeClass("ic_message");
-            });
-        }
-        /* var user_addr = '<p class="user_site">您的位置：<span>'+addr_info+'</span></p>';
-         $(".navWrapper").after(user_addr);*/
-
-        //$(user_addr).prependTo(".navWrapper");
-        $("#headerWrapper").find("#personal,#down_load_btn,#message_btn").hover(function(){
-            $(this).find("div").stop().slideDown("fast");
-        },function(){
-            $(this).find("div").stop().slideUp("fast");
-        });
-    };
-    //粉丝等级
-    var get_user_leval = function(u_score){
-        var u_score_all = [0,3000,18000,40000,100000];
-        for(var i=0;i<u_score_all.length-1;i++){
-            if(u_score>=u_score_all[i]&&u_score<u_score_all[i+1]){
-                u_score_next = u_score_all[i+1] - u_score;
-                return i+1;
-            }
-        }
-    };
-
-    function bookHover(){
-        $('.viewPlace_add').off('mouseenter mouseleave').on('mouseenter',function(){
-            $(this).html("取消订阅");
-        }).on('mouseleave',function(){
-            $(this).html("已订阅");
-        });
+    function getUserAgent(){
+        var u = navigator.userAgent,
+            isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
+            isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            agent = {
+                isAndroid:isAndroid,
+                isiOS:isAndroid
+            };
+        return agent;
     }
-
-    //订阅取消
-    var book_Fun = function(that){
-        var thisView = $(that);
-        var l_id = thisView.data("l_id");
-        var req = {
-            url:'Homes/booked',
-            data:{
-                follow:l_id
-            }
-        };
-        $.JsonRpc(req,function(data){
-            var status = data.data.status;
-            console.log(data);
-            thisView.unbind('mouseenter').unbind('mouseleave');
-            if(status==10){
-                //订阅成功
-                thisView.html("已订阅");
-                thisView.addClass("viewPlace_add");
-                thisView.hover(function(){
-                    thisView.html("取消订阅");
-                },function(){
-                    thisView.html("已订阅");
-                });
-            }else if(status==20){
-                thisView.removeClass("viewPlace_add");
-                thisView.html("订阅");
-            }
-
-        });
-    };
-
-    //关注取消的状态
-    var focus_status_btn = function(status,sid){
-        var tpl = "";
-        if(status==10){
-            tpl+=
-                '<a data-s_status="'+status+'" data-sid = "'+sid+'" class="focus_btn btn_cancel fr" href="javascript:void(0)">'+
-                '已关注'+
-                '</a>';
-        }else if(status==20){
-            tpl+=
-                '<a data-s_status="'+status+'" data-sid = "'+sid+'" class="focus_btn btn_confirm fr" href="javascript:void(0)">'+
-                '关注'+
-                '</a>';
-        }
-        return tpl;
-    };
-
-    //关注取消
-    var focus_Fun = function(that){
-        var that = $(that);
-        var sid = that.data("sid");
-        //s_status = that.data("s_status");
-        var search_param = {
-            url:'Users/subscribe',
-            data:{
-                follow:sid
-            }
-        };
-        $.JsonRpc(search_param,function(data){
-            if(data.data.status==10){
-                that.html("已关注")
-                    .addClass("btn_cancel")
-                    .removeClass("btn_confirm");
-            }else if(data.data.status==20){
-                that.html("关注")
-                    .addClass("btn_confirm")
-                    .removeClass("btn_cancel");
-            }
-        });
-    };
-
     //获取链接参数
     function getQueryString(name) {
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -254,12 +137,7 @@ var iService = function(){
     }
 
     return{
-        headerMove:headerMove,
-        focus_Fun:focus_Fun,
-        focus_status_btn:focus_status_btn,
-        get_user_leval:get_user_leval,
-        bookHover:bookHover,
-        book_Fun:book_Fun,
+        getUserAgent:getUserAgent,
         getQueryString:getQueryString,
         timeFormat:timeFormat,
         accAdd:accAdd,
@@ -271,6 +149,20 @@ var iService = function(){
         imgNoFind:imgNoFind
     }
 }();
+
+
+/*$('body').bind('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+$('body').on('touchstart','.mui-popup-button',function(){
+    $(this).addClass('yui-touch');
+}).on('touchend','.mui-popup-button',function(){
+    $(this).removeClass('yui-touch');
+});*/
+
+
+
 
 
 

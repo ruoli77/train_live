@@ -20,7 +20,7 @@
 </head>
 <body>
 <div id="back-btn-wrap">
-    <a class="back-btn" href="javascript:history.go(-1)"></a>论坛发帖<a href="javascript:void(0)" class="btn-send">发表</a>
+    <a class="back-btn" href="javascript:history.go(-1)"></a>论坛发帖<a href="javascript:void(0);" class="btn-send">发表</a>
 </div>
 
 <div class="content-main">
@@ -34,20 +34,47 @@
     </form>
 
 
-
 </div>
 
-
 <script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
 <script src="../js/asset/autosize.js"></script>
+
 
 <script>
     $(function() {
         mui.init();
-//        textarea  高度自适应
+//      textarea  高度自适应
         $('textarea').autosize();
-//        autosize(document.querySelectorAll('textarea'));
+        var btn_send = $('.btn-send');
+        btn_send[0].addEventListener('tap',function(){
+            var title = $('#title').val();
+            var content = $('#content').val();
+            if(!title){
+                mui.alert('标题不能为空',' ');
+                return false;
+            }else if(!content){
+                mui.alert('内容不能为空',' ');
+                return false;
+            }
+            var req = {
+                postData:'Society/addPost',
+                data:{
+                    title:title,
+                    content:content,
+                    path:'',
+                    file:''
+                }
+            };
+            $.JsonRpc(req,function(result){
+                console.log(result);
+                mui.alert(result.data.message,' ',function(){
+                    window.location.reload();
+                });
+            });
+        });
     });
 </script>
 </body>

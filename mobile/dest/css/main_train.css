@@ -7,6 +7,21 @@ b {
   font-weight: 400;
 }
 
+* {
+  -moz-user-select: none;
+  /*火狐*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.yui-touch {
+  background: #cccccc;
+}
+
 a,
 a:hover {
   text-decoration: none;
@@ -865,19 +880,21 @@ p.option-text {
 
 #gr-forum-list li i.comment-num {
   color: #ff5000;
-  width: 1.6rem;
 }
 
 [data-dpr="1"] #gr-forum-list li i.comment-num {
   font-size: 14px;
+  width: 60px;
 }
 
 [data-dpr="2"] #gr-forum-list li i.comment-num {
   font-size: 28px;
+  width: 120px;
 }
 
 [data-dpr="3"] #gr-forum-list li i.comment-num {
   font-size: 42px;
+  width: 180px;
 }
 
 #gr-forum-list li i.comment-num:before {
@@ -910,7 +927,7 @@ p.option-text {
   border: 1px solid #bec2c9;
   border-radius: 6px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   overflow: hidden;
 }
 
@@ -996,18 +1013,25 @@ p.option-text {
 
 .gr-bot-wrap .member-container {
   background: #fff;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 [data-dpr="1"] .gr-bot-wrap .member-container {
   padding: 20px 0 15px;
+  font-size: 14px;
 }
 
 [data-dpr="2"] .gr-bot-wrap .member-container {
   padding: 40px 0 30px;
+  font-size: 28px;
 }
 
 [data-dpr="3"] .gr-bot-wrap .member-container {
   padding: 60px 0 45px;
+  font-size: 42px;
 }
 
 .gr-bot-wrap .member-container a {
@@ -1043,6 +1067,18 @@ p.option-text {
 @media screen and (max-width:330px) {
   .swiper-slide {
     width: 33.3%;
+  }
+
+  [data-dpr="1"] .child-list-wrap li {
+    font-size: 12px;
+  }
+
+  [data-dpr="2"] .child-list-wrap li {
+    font-size: 24px;
+  }
+
+  [data-dpr="3"] .child-list-wrap li {
+    font-size: 36px;
   }
 }
 
@@ -1158,18 +1194,42 @@ p.option-text {
   height: 55px;
   line-height: 55px;
   padding: 0 10px 0 55px;
+  font-size: 14px;
 }
 
 [data-dpr="2"] .child-list-wrap li {
   height: 110px;
   line-height: 110px;
   padding: 0 20px 0 110px;
+  font-size: 28px;
 }
 
 [data-dpr="3"] .child-list-wrap li {
   height: 165px;
   line-height: 165px;
   padding: 0 30px 0 165px;
+  font-size: 42px;
+}
+
+.child-list-wrap li span {
+  display: inline-block;
+  width: 28%;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-dpr="1"] .child-list-wrap li span {
+  margin-right: 4px;
+}
+
+[data-dpr="2"] .child-list-wrap li span {
+  margin-right: 8px;
+}
+
+[data-dpr="3"] .child-list-wrap li span {
+  margin-right: 12px;
 }
 
 .child-list-wrap .avatar-member {
@@ -1222,44 +1282,33 @@ p.option-text {
   display: -ms-flexbox;
   display: flex;
   display: -webkit-flex;
+  /*height: 100px;!*px*!*/
+  padding: 5px 0;
   background: #f8f8f8;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-[data-dpr="1"] .send-tool-wrap {
-  height: 50px;
-}
-
-[data-dpr="2"] .send-tool-wrap {
-  height: 100px;
-}
-
-[data-dpr="3"] .send-tool-wrap {
-  height: 150px;
-}
-
-.send-tool-wrap input {
+.send-tool-wrap textarea {
   margin: 0 0 0 10px;
   border: 1px solid #c8c8cd;
   border-radius: 8px;
   color: #969696;
+  line-height: 1.5;
+  padding: 10px 5px 6px;
 }
 
-[data-dpr="1"] .send-tool-wrap input {
+[data-dpr="1"] .send-tool-wrap textarea {
   height: 40px;
-  line-height: 40px;
 }
 
-[data-dpr="2"] .send-tool-wrap input {
+[data-dpr="2"] .send-tool-wrap textarea {
   height: 80px;
-  line-height: 80px;
 }
 
-[data-dpr="3"] .send-tool-wrap input {
+[data-dpr="3"] .send-tool-wrap textarea {
   height: 120px;
-  line-height: 120px;
 }
 
 .send-tool-wrap span {
@@ -1837,11 +1886,24 @@ p.option-text {
 
 #fmDetail .top .avatar {
   display: inline-block;
-  width: 1.173333rem;
-  height: 1.173333rem;
   border-radius: 50%;
   border: 0.013333rem solid #f8f8f8;
   margin-right: 10px;
+}
+
+[data-dpr="1"] #fmDetail .top .avatar {
+  width: 44px;
+  height: 44px;
+}
+
+[data-dpr="2"] #fmDetail .top .avatar {
+  width: 88px;
+  height: 88px;
+}
+
+[data-dpr="3"] #fmDetail .top .avatar {
+  width: 132px;
+  height: 132px;
 }
 
 #fmDetail .top .info p {
@@ -1963,11 +2025,24 @@ p.option-text {
 
 .comments-list li .avatar {
   display: inline-block;
-  width: 1.173333rem;
-  height: 1.173333rem;
   border-radius: 50%;
   border: 0.013333rem solid #f8f8f8;
   margin-right: 10px;
+}
+
+[data-dpr="1"] .comments-list li .avatar {
+  width: 44px;
+  height: 44px;
+}
+
+[data-dpr="2"] .comments-list li .avatar {
+  width: 88px;
+  height: 88px;
+}
+
+[data-dpr="3"] .comments-list li .avatar {
+  width: 132px;
+  height: 132px;
 }
 
 .comments-list li .info p {

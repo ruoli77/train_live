@@ -18,15 +18,14 @@
     <a class="back-btn" href="javascript:history.go(-1)"></a>试卷预览
 </div>
 
-<div class="content-main">
+<div v-cloak class="content-main">
     <div class="answer-num-wrap">
         <i class="questions-total fr"></i>
         <i class="questions-cur fr"></i>
     </div>
-
     <section class="questions-wrap choose-wrap">
         <div class="questions-item clearfix">
-            <div><span class="num-now-wrap fl">1、</span></div><p class="question"></p>
+            <div ><span class="num-now-wrap fl">1、</span></div><p class="question"></p>
         </div>
         <div class="option-item clearfix" style="">
             <span>A</span><p class="option-text"></p>
@@ -45,10 +44,9 @@
     </div>
 </div>
 <script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
 <script src="../js/asset/jrrpc.js"></script>
-<!--<script src="../js/asset/vue.js"></script>-->
-
 
 <script>
     $(function(){
@@ -68,6 +66,8 @@
         document.getElementById('btn-exit').addEventListener('tap',exitAnswer);
         $(".back-btn").on('click',exitAnswer);
 
+
+        //        选择答案
         mui('.questions-wrap').on('tap','.option-item',function(){
             $(this).addClass('active').children('span').addClass('active');
             $(this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
@@ -81,21 +81,26 @@
                 questions_wrap = $('.questions-wrap'),
                 questions_total = $('.questions-total'),
                 option_item = $('.option-item'),
-                btn_submit = $('#btn-submit');
+                btn_submit = $('#btn-submit'),
+                llid = 1;// 直播的房间号，由app传过来
+
+
+
 
         function getQuestion(page){
             var param = {
                 postData:'Question/lists',
                 data: {
-                    page:page
+                    page:page,
+                    llid:llid
                 }
             };
             $.JsonRpc(param,function(result){
 //                console.log(result);
                 if(result.data.answer){
                     // 跳到答题卡
-                    window.location.href = 'result.html';
-                    return false;
+                   /* window.location.href = 'result.html';
+                    return false;*/
                 }
                 question_arr.push(result.data.lists[0]);
                 var nowpage = btn_next.attr('now-page');
@@ -114,9 +119,9 @@
 
         function showQuestion(page){
             var k = page-1;
-            if(!question_arr[k]){
+            /*if(!question_arr[k]){
                 getQuestion(page);
-            }
+            }*/
             questions_cur.html(page);
             btn_next.attr('qid',question_arr[k].qid);
             questions_wrap.html(
@@ -175,7 +180,8 @@
             var req = {
                 postData:'Question/answer',
                 data: {
-                    result:JSON.stringify(answers)
+                    result:JSON.stringify(answers),
+                    llid:llid
                 }
             };
             $.JsonRpc(req,function(result){
@@ -194,32 +200,6 @@
                 }
             });*/
         });
-
-
-
-
-
-        /*var vm =
-            new Vue({
-                el: '.content-main',
-                data: {data:""},
-
-                beforeCreate:function(){
-                    var _self=this;
-                    var param = {
-                        postData:'v001/Question/lists',
-                        data: {
-                            page:2
-                        }
-                    };
-                    $.JsonRpc(param,function(result){
-                        _self.data= result ;
-                        console.log(result);
-
-                    });
-                }
-
-            });*/
     })
 </script>
 </body>

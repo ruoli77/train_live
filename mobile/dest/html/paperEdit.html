@@ -15,7 +15,7 @@
 </head>
 <body>
 <div id="back-btn-wrap">
-    <a class="back-btn" href="javascript:history.go(-1)"></a>试卷编辑
+    <a class="back-btn" href="javascript:void(0)"></a>试卷编辑
 </div>
 
 <div class="content-main">
@@ -53,33 +53,36 @@
             <button id="btn-submit" class="btn2" onclick="">提交</button>
         </div>
     </form>
-
-
 </div>
 
 
 <script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
 <script src="../js/asset/jrrpc.js"></script>
 <script src="../js/asset/autosize.js"></script>
 
 <script>
+
+    function exitEdit(){
+        var btnArray = ['确定', '取消'];
+        mui.confirm('题目尚未提交，退出将会清楚所有编辑，你确定退出吗', '退出编辑', btnArray, function(e) {
+            if (e.index == 1) {
+//                    继续答题 不做处理
+            } else {
+                if(iService.getUserAgent.isiOS){
+                    editFinishPaper(0);
+                }else {
+                    h5button.editFinishPaper(0);
+                }
+            }
+        });
+    }
+
     $(function(){
         mui.init();
 
-        function exitEdit(e){
-            e.preventDefault();
-            var btnArray = ['确定', '取消'];
-            mui.confirm('题目尚未提交，退出将会清楚所有编辑，你确定退出吗', '退出编辑', btnArray, function(e) {
-                if (e.index == 1) {
-//                    继续答题
-                } else {
-//                    回到app
-//                    回到上一页
-                }
-            });
-        }
-//        $(".back-btn").on('click',exitEdit);
+        $(".back-btn").on('click',exitEdit);
 
         $('textarea').autosize();
         document.getElementById('btn-next').addEventListener('click',function(e){
@@ -94,10 +97,13 @@
             questionSubmit(postdata,allSubmit);
         });
 
+        //从app接收token和llid
+        var llid = 1;
         function questionSubmit(postdata,submitFun){
             var param = {
                 postData:postdata,
                 data: {
+                    llid:llid,
                     topic:$('#question').val(),
                     option_a:$('#contentA').val(),
                     option_b:$('#contentB').val(),
@@ -132,22 +138,20 @@
                         '<li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="contentA" placeholder="编辑选项内容"></textarea></li>'+
                         '<li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="contentB" placeholder="编辑选项内容"></textarea></li>'+
                         '<li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="contentC" placeholder="编辑选项内容"></textarea></li>');
-
+                $('.num-now').html(1);
+//              提交成功后给app的方法
+                if(iService.getUserAgent.isiOS){
+                    editFinishPaper(1);
+                }else {
+                    h5button.editFinishPaper(1);
+                }
             }
         }
-
-
-
-
-
     })
 </script>
 </body>
 </html>
 
-<script>
-//    $('html').style('font-size','window.screen.width/10');
-</script>
 
 
 

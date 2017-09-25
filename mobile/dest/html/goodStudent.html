@@ -15,30 +15,15 @@
 </head>
 <body>
 <div id="back-btn-wrap">
-    <a class="back-btn" href="javascript:history.go(-1)"></a><i id="nav-title"></i>
+    <a class="back-btn" href="javascript:history.go(-1)"></a><i id="nav-title">优秀学员</i>
 </div>
 <div class="content-main">
-    <h2 id="gs-title">2017年度&nbsp;共:100题</h2>
+    <h2 id="gs-title">2017年度&nbsp;共: <i id="total-num"></i>题</h2>
     <ul id="good-list-wrap">
         <li class="parent-list">
             <ul class="child-list-wrap" style="">
-                <li class="child-list">
-                    <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
-                    <span>姓名</span>
-                    <span>部门</span>
-                    <span>答对32题目</span>
-                    <i class="fr rank">1</i>
-                </li>
-                <li class="child-list">
-                    <span class="avatar-member" style="background: url('../img/icon-1.png') center center no-repeat;"></span>
-                    <span>姓名</span>
-                    <span>部门</span>
-                    <span>答对32题目</span>
-                    <i class="fr rank">2</i>
-                </li>
             </ul>
         </li>
-
     </ul>
 
     <!--包含二级内容-->
@@ -87,13 +72,35 @@
             }
         });
         mui(".parent-list").off('tap'); //二级内容
-
         var rank = iService.getQueryString('rank');
-        if(rank){
-            $('#nav-title').html('成绩排名');
-        }else {
-            $('#nav-title').html('优秀学员');
-        }
+        var param = {
+            postData:'Question/excellent',
+            data: {
+                page:1
+            }
+        };
+
+        $.JsonRpc(param,function(result){
+            console.log(result);
+            var data = result.data;
+            $("#total-num").html(data.top[0].total);
+            $.each(data.top,function(i){
+                $(
+                    '<li class="child-list">'+
+                    '<span class="avatar-member" style="background: url('+data.top[i].avatar+') center center no-repeat; background-size: cover;"></span>'+
+                    '<span>'+data.top[i].nickname+' </span>'+
+                    '<span>'+data.top[i].section+' </span>'+
+                    '<span>答对'+data.top[i].correct+'题目</span>'+
+                    '<i class="fr rank">'+(parseInt(i)+1)+'</i>'+
+                    '</li>'
+                ).appendTo('.child-list-wrap');
+            });
+
+
+
+        });
+
+
 
 
     })

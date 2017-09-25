@@ -14,13 +14,13 @@ $.fn.extend({
 jQuery.extend({
 
     //ajax扩展
-    JsonRpc: function(param, successFunc, async) {
+    JsonRpc: function(param, successFunc, me, async) {
         var param_public = {
-            token:'DjdRYlA7VDBcNw1qVWEHagtjBDYFYA==',
-            channel:'100086-59bf7148'
+            token:'ADkFPQdhBGFbMAVgVGRSN103BDUAZQ==',
+            channel:'201314-59bf7148'
         };
-        //var url = 'http://192.168.1.111:8090/v001/'+param.postData;
-        var url = 'http://train.api.livestaring.com/v001/'+param.postData;
+        var url = 'http://192.168.1.111:8090/v001/'+param.postData;
+        //var url = 'http://train.api.livestaring.com/v001/'+param.postData;
         param = $.extend(param.data,param_public);
         $.ajax({
             type: "post",
@@ -41,6 +41,11 @@ jQuery.extend({
                             mui.alert(response.data.message,' ',function(){
                             });
                             return false;
+                        } else if(response.code == 300){
+                            mui.alert(response.data.message,' ',function(){
+                                //    调用安卓方法
+                            });
+                            return false;
                         }
                        if(response.code == 500){
                             alert("服务器错误，请刷新重试");
@@ -55,7 +60,10 @@ jQuery.extend({
                 }
             },
             error: function () {
-                console.log("error")
+                console.log("error");
+                if(me){
+                    me.resetload();
+                }
             }
         });
 

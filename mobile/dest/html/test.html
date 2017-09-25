@@ -2,27 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Title</title>
     <script src="../js/asset/jquery.min.js"></script>
     <script src="../js/asset/mui.min.js"></script>
 
+    <style>
+        #test_btn{
+            background: #ff442c;
+        }
+        #test_btn.yui-touch{
+            background: #a4ff38;
+        }
+
+    </style>
+
 </head>
-<body>
-<form action="" onsubmit="return false;">
-    <!--<button id="btn-next" onclick="questionSubmit();"  style="width:50%; height:80px; background: red" >点我</button>-->
-    <button id="btn-next" onclick="questionSubmit();"  style="width:50%; height:80px; background: red" >点我</button>
+<body style="overflow: hidden;">
+<!--<form action="" onsubmit="return false;">
+    <button id="btn-next" onclick="questionSubmit();"  style="width:50%; height:80px; background: red; font-size: 20px;" >点我调用editFinishPaper</button>
+</form>-->
 
-</form>
-
-
+<span id="test_btn" style="display:inline-block; width:50%; height:80px;  font-size: 20px;"></span>
 <script>
 
-    function questionSubmit(){
-        alert(1);
-        share('成功');
-    }
+   /* /!*单指拖动*!/
+    var obj = document.getElementById('id');
+    obj.addEventListener('touchmove', function(event) {
+        //如果这个元素的位置内只有一个手指的话
+        if (event.targetTouches.length == 1) {
+            event.preventDefault();// 阻止浏览器默认事件，重要
+            var touch = event.targetTouches[0];
+            //把元素放在手指所在的位置
+            obj.style.left = touch.pageX-50 + 'px';
+            obj.style.top = touch.pageY-50 + 'px';
+        }
+    }, false);*/
+
+    $('#test_btn').on('touchstart',function(){
+        $(this).addClass('yui-touch');
+    }).on('touchend',function(){
+        $(this).removeClass('yui-touch');
+    });
+
 
 
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

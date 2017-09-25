@@ -9,6 +9,7 @@
     <title>需求发布</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/dropload.css">
     <script src="../js/asset/flexible_css.debug.js"></script>
     <script src="../js/asset/flexible.debug.js"></script>
     <link rel="stylesheet" href="../css/main_train.css">
@@ -18,7 +19,10 @@
     <a class="back-btn" href="javascript:history.go(-1)"></a>需求发布
 </div>
 <div class="content-main clearfix" id="sm-wrap">
-    <div class="msg-item">
+    <div class="sm-msg-wrap">
+
+    </div>
+    <!--<div class="msg-item">
         <div class="time-wrap">
             <span class="msg-time">05:12</span>
         </div>
@@ -43,19 +47,26 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
 </div>
 <div class="send-tool-wrap">
-    <input type="text">
-    <span class="">发送</span>
+    <textarea name="" id=""></textarea>
+    <span class="msg-send-btn">发送</span>
 </div>
-　　
+
 <script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/dropload.js"></script>
+<script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
+<script src="../js/asset/autosize.js"></script>
+
 
 <script>
     $(function(){
         mui.init();
+
+        $('textarea').autosize();
 
         //ios 键盘挡住input
         var u = navigator.userAgent,
@@ -69,6 +80,104 @@
                 $(".send-tool-wrap").css({'bottom':'0'})
             });
         }
+
+
+        function getMsgList(page,me){
+            var param = {
+                postData:'Society/demandLists',
+                data:{
+                    page:page
+                }
+            };
+            $.JsonRpc(param,function(result){
+                console.log(result);
+                var data = result.data;
+                if(!smWrap.attr('data-page')){
+                    smWrap.attr('data-page',result.data.count);
+                }
+                $.each(data.lists,function(i){
+                    $(
+                        '<div class="msg-item">'+
+                        '<div class="time-wrap">'+
+                        '<span class="msg-time">'+data.lists[i].createtime+'</span>'+
+                        '</div>'+
+                        '<div class="msg-info">'+
+                        '<span class="avatar fl" style="background: url('+data.lists[i].avatar+') no-repeat center center; background-size: cover;"></span>'+
+                        '<p class="nickname">'+data.lists[i].nickname+'</p>'+
+                        '<div class="msg-wrap">'+data.lists[i].content+'</div>'+
+                        '</div>'+
+                        '</div>'
+                    ).prependTo('.sm-msg-wrap');
+                });
+                if(me){
+                    me.resetload();
+                }
+            },me);
+        }
+
+        var page = 1;
+        getMsgList(page);
+        var smWrap = $('#sm-wrap');
+
+        $('#sm-wrap').dropload({
+//          滑动区域
+            scrollArea: window,
+//          autoLoad:false,
+//          定义上方样式
+            domUp: {
+                domClass: "dropload-up",
+                domRefresh: '<div class="dropload-refresh">↓下拉加载更多</div>',
+                domUpdate: '<div class="dropload-update">↑释放加载</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+            },
+            distance: 50,
+            threshold: "",
+            loadUpFn: function(me){
+                if(page<=Math.ceil(smWrap.attr('data-page')/3)){
+                    getMsgList(page,me);
+                    page += 1;
+                }else {
+                    me.lock();//没有更多数据
+                    me.noData();//没有更多数据
+                    me.resetload();
+                }
+            }
+        });
+
+
+        mui('.send-tool-wrap').on('tap','.msg-send-btn',function(){
+            var content = $('textarea').val();
+            if(!content){
+                return false;
+            }
+            var req = {
+                postData:'Society/demandAdd',
+                data:{
+                    content:content
+                }
+            };
+            $.JsonRpc(req,function(result){
+                console.log(result);
+                window.location.reload();
+                $(
+                    '<div class="msg-item msg-item-right">'+
+                        '<div class="time-wrap">'+
+                            '<span class="msg-time">刚刚</span>'+
+                        '</div>'+
+                        '<div class="msg-info">'+
+                            '<span class="avatar fr" style="background: url('+df+') no-repeat center center;"></span>'+
+                            '<p class="nickname fr">昵称app给</p>'+
+                            '<br />'+
+                            '<div class="msg-wrap fr">'+content+'</div>'+
+                        '</div>'+
+                    '</div>'
+                ).appendTo('#sm-wrap')
+
+            });
+        });
+
+
+
 
     })
 </script>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>试卷预览</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <script src="../js/asset/flexible_css.debug.js"></script>
+    <script src="../js/asset/flexible.debug.js"></script>
+    <link rel="stylesheet" href="../css/main_train.css">
+
+    <style>
+        [v-cloak] { display: none }
+    </style>
+</head>
+<body>
+<div id="back-btn-wrap">
+    <a class="back-btn" href="javascript:history.go(-1)"></a>试卷预览
+</div>
+
+<div v-cloak class="content-main">
+    <div class="answer-num-wrap">
+        <i class="questions-total fr"></i>
+        <i class="questions-cur fr"></i>
+    </div>
+
+    <section class="questions-wrap choose-wrap" v-for="(value, key, index) in data.lists" >
+        <div class="questions-item clearfix">
+            <div ><span class="num-now-wrap fl">1、</span></div><p class="question">{{value.topic}}</p>
+        </div>
+        <div @click='chooseOption($event)' class="option-item clearfix" style="">
+            <span>A</span><p class="option-text">{{value.option_a}}</p>
+        </div>
+        <div @click='chooseOption($event)' class="option-item clearfix">
+            <span>B</span><p class="option-text">{{value.option_b}}</p>
+        </div>
+        <div @click='chooseOption($event)' class="option-item clearfix">
+            <span>C</span><p class="option-text">{{value.option_c}}</p>
+        </div>
+    </section>
+    <button id="btn-next" class="btn1" now-page = '1'>下一题</button>
+    <button id="btn-exit" class="btn1">退出答题</button>
+    <div class="btn-submit-wrap displayNone">
+        <button id="btn-submit" class="btn2">提交</button>
+    </div>
+</div>
+<script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
+<!--<script src="../js/asset/vue.js"></script>-->
+<script src="../js/asset/vue-dev.js"></script>
+
+
+<script>
+    $(function(){
+        mui.init();
+
+        var vm =
+            new Vue({
+                el: '.content-main',
+                data: {data:""},
+                beforeCreate:function(){
+                    var _self=this;
+                    var param = {
+                        postData:'Question/lists',
+                        data: {
+                            page:1
+                        }
+                    };
+                    $.JsonRpc(param,function(result){
+//                  console.log(result);
+                        /*if(result.data.answer){
+                            // 跳到答题卡
+                            window.location.href = 'result.html';
+                            return false;
+                        }*/
+                        console.log(result.data);
+                        _self.data = result.data;
+
+                    });
+                },
+                methods:{
+                    chooseOption:
+                        function chooseOption(event){
+                            alert(event.currentTarget.tagName);
+                            $(_this).addClass('active').children('span').addClass('active');
+                            $(_this).siblings('.option-item').removeClass('active').children('span').removeClass('active');
+                        }
+                }
+            });
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
