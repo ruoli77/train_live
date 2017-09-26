@@ -57,27 +57,17 @@
 <script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
 <script src="../js/asset/jrrpc.js"></script>
+<script src="../js/asset/autosize.js"></script>
 
 <script>
     $(function() {
         mui.init();
-        //ios 键盘挡住input
-        var u = navigator.userAgent,
-                isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
-                isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-        if(isiOS){
-            $(".send-tool-wrap input").focus(function(){
-                $(".send-tool-wrap").css({'bottom':'60%'})
-            });
-            $(".send-tool-wrap input").blur(function(){
-                $(".send-tool-wrap").css({'bottom':'0'})
-            });
-        }
-
+        var token = iService.getAppParam();
+        $('textarea').autosize();
+        iService.iosInput();
         var sid = iService.getQueryString('sid');
         var page = 1;
         var commentsListWrap = $('.comments-list');
-
 //        评论列表
         function getSubComment(page,me){
             var param = {
@@ -87,6 +77,7 @@
                     sid:sid
                 }
             };
+            $.extend(param.data,token);
             $.JsonRpc(param,function(result){
                 console.log(result);
                 if(!commentsListWrap.attr('data-page')){
@@ -117,6 +108,8 @@
                 sid:sid
             }
         };
+
+        $.extend(param.data,token);
 //        主页面
         $.JsonRpc(param,function(result){
             console.log(result);
@@ -200,6 +193,7 @@
                     content:content
                 }
             };
+            $.extend(req.data,token);
             $.JsonRpc(req,function(result){
                 console.log(result);
                 mui.alert(result.data.message,' ',function(){

@@ -66,7 +66,7 @@
 
     function exitEdit(){
         var btnArray = ['确定', '取消'];
-        mui.confirm('题目尚未提交，退出将会清楚所有编辑，你确定退出吗', '退出编辑', btnArray, function(e) {
+        mui.confirm('题目尚未提交，退出将会清除所有编辑，你确定退出吗', '退出编辑', btnArray, function(e) {
             if (e.index == 1) {
 //                    继续答题 不做处理
             } else {
@@ -81,6 +81,7 @@
 
     $(function(){
         mui.init();
+        var appParam = iService.getAppParam();
 
         $(".back-btn").on('click',exitEdit);
 
@@ -97,13 +98,10 @@
             questionSubmit(postdata,allSubmit);
         });
 
-        //从app接收token和llid
-        var llid = 1;
         function questionSubmit(postdata,submitFun){
             var param = {
                 postData:postdata,
                 data: {
-                    llid:llid,
                     topic:$('#question').val(),
                     option_a:$('#contentA').val(),
                     option_b:$('#contentB').val(),
@@ -111,6 +109,7 @@
                     option:$('input[name=correct-options]:checked').val()
                 }
             };
+            $.extend(param.data,appParam);
             $.JsonRpc(param,submitFun);
         }
         function subSubmit(result){

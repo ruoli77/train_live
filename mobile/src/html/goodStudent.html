@@ -59,7 +59,7 @@
 <script>
     $(function(){
         mui.init();
-
+        var token = iService.getAppParam();
         mui(".parent-list").on('tap','.parent-item',function(){
             if($(this).hasClass('active')){
                 $(this).siblings('.child-list-wrap').hide();
@@ -79,7 +79,7 @@
                 page:1
             }
         };
-
+        $.extend(param.data,token);
         $.JsonRpc(param,function(result){
             console.log(result);
             var data = result.data;
@@ -95,14 +95,7 @@
                     '</li>'
                 ).appendTo('.child-list-wrap');
             });
-
-
-
         });
-
-
-
-
     })
 </script>
 </body>

@@ -9,7 +9,7 @@
     <title>社区</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/mui.min.css">
-    <link rel="stylesheet" href="../js/swiper/swiper.min.css">
+    <link rel="stylesheet" href="../js/asset/swiper/swiper.min.css">
     <script src="../js/asset/flexible_css.debug.js"></script>
     <script src="../js/asset/flexible.debug.js"></script>
     <link rel="stylesheet" href="../css/main_train.css">
@@ -97,16 +97,25 @@
 <script src="../js/asset/jquery.min.js"></script>
 <script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
-<script src="../js/swiper/swiper.min.js"></script>
+<script src="../js/asset/swiper/swiper.min.js"></script>
 <script src="../js/asset/jrrpc.js"></script>
 
 <script>
     $(function(){
         mui.init();
-
+        var token = iService.getQueryString('token');
+        if(!token){
+            mui.alert('缺少token',' ');
+            return false;
+        }
+        sessionStorage.token = token;
         var param = {
-            postData:'Society/home'
+            postData:'Society/home',
+            data:{
+                token:token
+            }
         };
+
         $.JsonRpc(param,function(result){
             console.log(result);
             var goodStudentList = result.data.question;
@@ -148,16 +157,12 @@
                 scrollbarHide: true,
                 slidesPerView: 'auto',
                 centeredSlides: false,
-                spaceBetween: 8,
+                spaceBetween: '1.33%',
                 grabCursor: false,
                 momentumBounce:0
             });
 
         });
-
-
-
-
 
     })
 </script>

@@ -51,6 +51,8 @@
 <script>
     $(function(){
         mui.init();
+        var appParam = iService.getAppParam();
+
         function exitAnswer(e){
             e.preventDefault();
             var btnArray = ['退出', '继续答题'];
@@ -81,20 +83,16 @@
                 questions_wrap = $('.questions-wrap'),
                 questions_total = $('.questions-total'),
                 option_item = $('.option-item'),
-                btn_submit = $('#btn-submit'),
-                llid = 1;// 直播的房间号，由app传过来
-
-
-
+                btn_submit = $('#btn-submit');
 
         function getQuestion(page){
             var param = {
                 postData:'Question/lists',
                 data: {
-                    page:page,
-                    llid:llid
+                    page:page
                 }
             };
+            $.extend(param.data,appParam);
             $.JsonRpc(param,function(result){
 //                console.log(result);
                 if(result.data.answer){
@@ -108,6 +106,7 @@
                     if(page==1){
                         questions_total.html('/'+result.data.count);
                         btn_next.attr('total-page',result.data.count);
+                        getQuestion(2);
                     }
                     showQuestion(page);
                 }
@@ -115,7 +114,6 @@
         }
 
         getQuestion(nowpage);
-        getQuestion(2);
 
         function showQuestion(page){
             var k = page-1;
@@ -180,14 +178,15 @@
             var req = {
                 postData:'Question/answer',
                 data: {
-                    result:JSON.stringify(answers),
-                    llid:llid
+                    result:JSON.stringify(answers)
                 }
             };
+            $.extend(req.data,appParam);
+
             $.JsonRpc(req,function(result){
                 console.log(result);
                 mui.alert('试卷提交成功', ' ', function(e) {
-                    window.location.href = 'result.html';
+                    window.location.href = 'result.html?token='+appParam.token+'&llid='+appParam.llid+'';
                 });
             });
 

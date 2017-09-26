@@ -136,6 +136,36 @@ var iService = function(){
         that.setAttribute('src','/themes/show/public/assets/img/logo.png');
     }
 
+    function iosInput(){
+        var u = navigator.userAgent,
+            isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
+            isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        if(isiOS){
+            $(".send-tool-wrap textarea").focus(function(){
+                $(".send-tool-wrap").css({'bottom':'60%'})
+            });
+            $(".send-tool-wrap textarea").blur(function(){
+                $(".send-tool-wrap").css({'bottom':'0'})
+            });
+        }
+    }
+    //社区token
+    function getAppParam(){
+        var token = getQueryString('token');
+        var llid = getQueryString('llid');
+        token = token||sessionStorage.token;
+        if(!token){
+            alert('token不存在');
+        }
+        var appData = {
+            token:token
+        };
+        if(llid){
+            appData.llid = llid;
+        }
+        return appData;
+    }
+
     return{
         getUserAgent:getUserAgent,
         getQueryString:getQueryString,
@@ -146,7 +176,9 @@ var iService = function(){
         AddDaysUtil:AddDaysUtil,
         turnDateToString:turnDateToString,
         inputAnimate:inputAnimate,
-        imgNoFind:imgNoFind
+        imgNoFind:imgNoFind,
+        iosInput:iosInput,
+        getAppParam:getAppParam
     }
 }();
 

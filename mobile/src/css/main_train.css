@@ -511,8 +511,10 @@ p.option-text{
 }
 .swiper-slide{
     display: inline-block;
-    width: 25%;
+    width: 24%;
     text-align: center;
+}
+.swiper-slide:last-of-type{
     margin-right: 0!important;
 }
 @media screen and (max-width:330px)   {
@@ -608,7 +610,7 @@ p.option-text{
     display: flex;
     display: -webkit-flex;
     /*height: 100px;!*px*!*/
-    padding: 5px 0;/*no*/
+    padding: 8px 0;/*no*/
     background: #f8f8f8;
     align-items:center;
 }
@@ -620,11 +622,11 @@ p.option-text{
     color: #969696;
     line-height: 1.5;
     padding: 10px 5px 6px;/*no*/
+    max-height: 160px;/*px*/
 }
 .send-tool-wrap span{
     flex: 1;
     min-width: 110px;/*px*/
-    line-height: 100px;/*px*/
     text-align: center;
     font-size: 28px;/*px*/
     color: #969696;
@@ -779,14 +781,13 @@ p.option-text{
 }
 #fs-wrap .upload-btn-wrap{
     display: inline-block;
-    width: 160px;/*px*/
-    height: 160px;/*px*/
     text-align: center;
     position: relative;
     margin-top: 20px;/*px*/
     background: url("../img/icon-upload.png") no-repeat;
     background-size: cover;
-
+    width: calc((10rem - 68px)/4);/*no*/
+    height: calc((10rem - 68px)/4);/*no*/
 }
 #fs-wrap .upload-btn-wrap:before{
     font-family: Muiicons;

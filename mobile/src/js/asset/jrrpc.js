@@ -16,11 +16,12 @@ jQuery.extend({
     //ajax扩展
     JsonRpc: function(param, successFunc, me, async) {
         var param_public = {
-            token:'ADkFPQdhBGFbMAVgVGRSN103BDUAZQ==',
-            channel:'201314-59bf7148'
+            //token:'W2JVbVE3UzYKYQFkUGBXMg5kAjMHYg==',
+            //token:'XGUDNFU3AG0ObQNtX2EBbQtrATsBYg==',
+            //channel:'201314-59bf7148'
         };
-        var url = 'http://192.168.1.111:8090/v001/'+param.postData;
-        //var url = 'http://train.api.livestaring.com/v001/'+param.postData;
+        //var url = 'http://192.168.1.111:8090/v001/'+param.postData;
+        var url = 'http://train.api.livestaring.com/v001/'+param.postData;
         param = $.extend(param.data,param_public);
         $.ajax({
             type: "post",
@@ -40,15 +41,24 @@ jQuery.extend({
                         if(response.code == 400){
                             mui.alert(response.data.message,' ',function(){
                             });
+                            if(me){
+                                me.resetload();
+                            }
                             return false;
                         } else if(response.code == 300){
                             mui.alert(response.data.message,' ',function(){
                                 //    调用安卓方法
                             });
+                            if(me){
+                                me.resetload();
+                            }
                             return false;
                         }
                        if(response.code == 500){
                             alert("服务器错误，请刷新重试");
+                            if(me){
+                                me.resetload();
+                            }
                             return false;
                         }
                         successFunc(response);

@@ -65,23 +65,9 @@
 <script>
     $(function(){
         mui.init();
-
+        var token = iService.getAppParam();
         $('textarea').autosize();
-
-        //ios 键盘挡住input
-        var u = navigator.userAgent,
-            isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
-            isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-        if(isiOS){
-            $(".send-tool-wrap input").focus(function(){
-                $(".send-tool-wrap").css({'bottom':'60%'})
-            });
-            $(".send-tool-wrap input").blur(function(){
-                $(".send-tool-wrap").css({'bottom':'0'})
-            });
-        }
-
-
+        iService.iosInput();
         function getMsgList(page,me){
             var param = {
                 postData:'Society/demandLists',
@@ -89,6 +75,7 @@
                     page:page
                 }
             };
+            $.extend(param.data,token);
             $.JsonRpc(param,function(result){
                 console.log(result);
                 var data = result.data;
@@ -156,6 +143,7 @@
                     content:content
                 }
             };
+            $.extend(req.data,token);
             $.JsonRpc(req,function(result){
                 console.log(result);
                 window.location.reload();

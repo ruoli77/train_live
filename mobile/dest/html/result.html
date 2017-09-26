@@ -31,26 +31,21 @@
     </div>
 </div>
 
-
-
-
-
-
 <script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/common.js"></script>
 <script src="../js/asset/mui.min.js"></script>
 <script src="../js/asset/jrrpc.js"></script>
 
 <script>
     $(function(){
         mui.init();
-
-        var llid = 1;//由app传过来  可以通过url传参获取
+        var appParam = iService.getAppParam();
         var param = {
             postData:'Question/results',
-            data: {
-                llid:llid
-            }
+            data: {}
         };
+        $.extend(param.data,appParam);
+
         $.JsonRpc(param,function(result){
             console.log(result.data);
             var data = result.data;

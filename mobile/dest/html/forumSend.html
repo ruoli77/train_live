@@ -14,6 +14,41 @@
     <link rel="stylesheet" href="../css/main_train.css">
 
     <style>
+        #test_wrap{
+
+        }
+        #test_wrap div.pic-wrap{
+            float: left;
+            width: calc((10rem - 68px)/4);
+            height: calc((10rem - 68px)/4);
+            margin-right: 16px;
+            margin-top: 10px;
+            position: relative;
+        }
+        #fs-wrap .upload-btn-wrap{
+            width: calc((10rem - 68px)/4);
+            height: calc((10rem - 68px)/4);
+        }
+        #test_wrap div.pic-wrap img{
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #test_wrap div.pic-wrap:nth-child(4n+0),#test_wrap span.upload-btn-wrap:nth-child(4n+0){
+            margin-right: 0;
+        }
+
+        #test_wrap i.mui-icon-minus:before {
+            content: '\e410';
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 1;
+            color: red;
+            font-weight: bold;
+        }
 
     </style>
 
@@ -28,12 +63,24 @@
     <form action="" id="fs-wrap">
         <textarea name="" id="title" placeholder="写个标题吧"></textarea>
         <textarea name="" id="content" placeholder="你想发布的内容"></textarea>
-        <span class="upload-btn-wrap">
-            <input type="file">
-        </span>
+        <div id="test_wrap" class="clearfix">
+            <div class="pic-wrap">
+                <img src="../img/blue.jpg" alt="">
+                <i class="mui-icon mui-icon-minus"></i>
+            </div>
+            <div class="pic-wrap">
+                <img src="../img/blue.jpg" alt="">
+                <i class="mui-icon mui-icon-minus"></i>
+            </div>
+            <div class="pic-wrap">
+                <img src="../img/blue.jpg" alt="">
+                <i class="mui-icon mui-icon-minus"></i>
+            </div>
+            <span class="upload-btn-wrap">
+                <input id="uploadBtn" type="file" accept="image/jpg,image/jpeg,image/png" name=img>
+            </span>
+        </div>
     </form>
-
-
 </div>
 
 <script src="../js/asset/jquery.min.js"></script>
@@ -42,10 +89,10 @@
 <script src="../js/asset/jrrpc.js"></script>
 <script src="../js/asset/autosize.js"></script>
 
-
 <script>
     $(function() {
         mui.init();
+        var token = iService.getAppParam();
 //      textarea  高度自适应
         $('textarea').autosize();
         var btn_send = $('.btn-send');
@@ -68,6 +115,7 @@
                     file:''
                 }
             };
+            $.extend(req.data,token);
             $.JsonRpc(req,function(result){
                 console.log(result);
                 mui.alert(result.data.message,' ',function(){
@@ -75,6 +123,21 @@
                 });
             });
         });
+
+//      上传图片
+        var upload_btn = $('#uploadBtn');
+        upload_btn[0].addEventListener('change',function(){
+            console.log($(this).val());
+//          每次图片上传成功后，置空input的值，可以上传相同图片
+            $('.upload-btn-wrap').before(
+                    '<div class="pic-wrap">'+
+                    '<img src="../img/blue.jpg" alt="">'+
+                    '<i class="mui-icon mui-icon-minus"></i>'+
+                    '</div>'
+            );
+            $(this).val('');
+        });
+
     });
 </script>
 </body>
