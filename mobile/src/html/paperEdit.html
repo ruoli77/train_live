@@ -63,7 +63,6 @@
 <script src="../js/asset/autosize.js"></script>
 
 <script>
-
     function exitEdit(){
         var btnArray = ['确定', '取消'];
         mui.confirm('题目尚未提交，退出将会清除所有编辑，你确定退出吗', '退出编辑', btnArray, function(e) {
@@ -78,7 +77,6 @@
             }
         });
     }
-
     $(function(){
         mui.init();
         var appParam = iService.getAppParam();
@@ -114,14 +112,14 @@
         }
         function subSubmit(result){
             var num_now = parseInt($(".num-now").html())+1;
-            if(num_now==50){
+            if(result.data.count==49){
                 $("#btn-next").css('visibility','hidden');
             }
             $(".num-now").html(num_now);
             $(".num-now-wrap").html(num_now+"、");
             $('#questions-form-wrap')[0].reset();
             $(".questions-wrap").html(
-                    '<li class="questions-item clearfix"><span class="fl">'+(parseInt(result.data.count)+1)+'</span> <textarea name="" id="question" placeholder="编辑题目"></textarea></li>'+
+                    '<li class="questions-item clearfix"><span class="fl">'+(num_now)+'</span> <textarea name="" id="question" placeholder="编辑题目"></textarea></li>'+
                     '<li class="option-item clearfix"><span class="fl">A</span> <textarea name="" id="contentA" placeholder="编辑选项内容"></textarea></li>'+
                     '<li class="option-item clearfix"><span class="fl">B</span> <textarea name="" id="contentB" placeholder="编辑选项内容"></textarea></li>'+
                     '<li class="option-item clearfix"><span class="fl">C</span> <textarea name="" id="contentC" placeholder="编辑选项内容"></textarea></li>');

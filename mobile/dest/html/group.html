@@ -121,49 +121,54 @@
             var goodStudentList = result.data.question;
             var forumList = result.data.society;
 
-            $.each(forumList,function(i){
-                $(
-                    '<li class="item clearfix">'+
-                        '<a href="forumDetail.html?sid='+forumList[i].sid+'">'+
+            if(!forumList.length){
+                $('#gr-forum-list').html('<p class="null-wrap">暂无数据</p>');
+            }else {
+                $.each(forumList,function(i){
+                    $(
+                            '<li class="item clearfix">'+
+                            '<a href="forumDetail.html?sid='+forumList[i].sid+'">'+
                             '<div class="avatar-wrap fl">'+
-                                '<img class="avatar" src="'+forumList[i].avatar+'" alt="">'+
+                            '<img class="avatar" src="'+forumList[i].avatar+'" alt="">'+
                             '</div>'+
                             '<div class="list-right-wrap">'+
-                                '<h3 class="clearfix">'+forumList[i].title+'</h3>'+
-                                '<p class="tips-wrap clearfix">'+
-                                    '<span>'+forumList[i].nickname+'</span>'+
-                                    '<b> '+String(forumList[i].createtime).slice(0,10)+'</b>'+
-                                    '<i class="fr comment-num">'+forumList[i].comment+'</i>'+
-                                '</p>'+
+                            '<h3 class="clearfix">'+forumList[i].title+'</h3>'+
+                            '<p class="tips-wrap clearfix">'+
+                            '<span>'+forumList[i].nickname+'</span>'+
+                            '<b> '+String(forumList[i].createtime).slice(0,10)+'</b>'+
+                            '<i class="fr comment-num">'+forumList[i].comment+'</i>'+
+                            '</p>'+
                             '</div>'+
-                        '</a>'+
-                    '</li>'
-                ).appendTo('#gr-forum-list');
-            });
+                            '</a>'+
+                            '</li>'
+                    ).appendTo('#gr-forum-list');
+                });
+            }
+            if(!goodStudentList.length){
+                $('.member-wrap').html('<p class="null-wrap">暂无数据</p>');
+            }else {
+                $.each(goodStudentList,function(i) {
+                    $(
+                            '<div class="swiper-slide">'+
+                            '<a href="javascript:void(0)" style="background: url('+goodStudentList[i].avatar+') center center"></a>'+
+                            '<h4>'+goodStudentList[i].nickname+'</h4>'+
+                            '<h4>'+goodStudentList[i].section+'</h4><span>正确率:'+parseInt((goodStudentList[i].correct/goodStudentList[i].total)*100)+'%</span></p>'+
+                            '</div>'
+                    ).appendTo('.member-wrap');
+                });
 
-            $.each(goodStudentList,function(i) {
-                $(
-                '<div class="swiper-slide">'+
-                    '<a href="javascript:void(0)" style="background: url('+goodStudentList[i].avatar+') center center"></a>'+
-                    '<h4>'+goodStudentList[i].nickname+'</h4>'+
-                    '<h4>'+goodStudentList[i].section+'</h4><span>正确率:'+parseInt((goodStudentList[i].correct/goodStudentList[i].total)*100)+'%</span></p>'+
-                '</div>'
-                ).appendTo('.member-wrap');
-            });
-
-            //回放滑动列表
-            var swiper = new Swiper('.swiper-container', {
-                scrollbar: null,
-                scrollbarHide: true,
-                slidesPerView: 'auto',
-                centeredSlides: false,
-                spaceBetween: '1.33%',
-                grabCursor: false,
-                momentumBounce:0
-            });
-
+                //回放滑动列表
+                var swiper = new Swiper('.swiper-container', {
+                    scrollbar: null,
+                    scrollbarHide: true,
+                    slidesPerView: 'auto',
+                    centeredSlides: false,
+                    spaceBetween: '1.33%',
+                    grabCursor: false,
+                    momentumBounce:0
+                });
+            }
         });
-
     })
 </script>
 </body>

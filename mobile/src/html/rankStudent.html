@@ -53,6 +53,13 @@
                 if(!rankListWrap.attr('data-page')){
                     rankListWrap.attr('data-page',result.data.count);
                 }
+                if(me){
+                    me.resetload();
+                }
+                if(!result.data.count){
+                    $('.dropload-noData').html('暂无数据');
+                    return false;
+                }
                 $("#total-num").html(data.lists[0].total);
                 $.each(data.lists,function(i){
                     $(
@@ -64,10 +71,9 @@
                             '<i class="fr rank">'+(parseInt(i)+1)+'</i>'+
                             '</li>'
                     ).appendTo('.child-list-wrap');
-                    if(me){
-                        me.resetload();
-                    }
+
                 });
+
             },me);
         }
 

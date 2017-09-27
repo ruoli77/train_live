@@ -29,6 +29,18 @@
             width: calc((10rem - 68px)/4);
             height: calc((10rem - 68px)/4);
         }
+        #test_wrap div.pic-wrap{
+            border: 1px solid #a5a5a5;
+        }
+        span.fs-pic-wrap{
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
         #test_wrap div.pic-wrap img{
             position: absolute;
             width: 100%;
@@ -64,22 +76,12 @@
         <textarea name="" id="title" placeholder="写个标题吧"></textarea>
         <textarea name="" id="content" placeholder="你想发布的内容"></textarea>
         <div id="test_wrap" class="clearfix">
-            <div class="pic-wrap">
-                <img src="../img/blue.jpg" alt="">
-                <i class="mui-icon mui-icon-minus"></i>
-            </div>
-            <div class="pic-wrap">
-                <img src="../img/blue.jpg" alt="">
-                <i class="mui-icon mui-icon-minus"></i>
-            </div>
-            <div class="pic-wrap">
-                <img src="../img/blue.jpg" alt="">
-                <i class="mui-icon mui-icon-minus"></i>
-            </div>
             <span class="upload-btn-wrap">
                 <input id="uploadBtn" type="file" accept="image/jpg,image/jpeg,image/png" name=img>
             </span>
         </div>
+
+        <input name="token" type="hidden" id="token-wrap">
     </form>
 </div>
 
@@ -93,6 +95,7 @@
     $(function() {
         mui.init();
         var token = iService.getAppParam();
+        $("#token-wrap").val(token.token);
 //      textarea  高度自适应
         $('textarea').autosize();
         var btn_send = $('.btn-send');
@@ -106,13 +109,21 @@
                 mui.alert('内容不能为空',' ');
                 return false;
             }
+            var path = '';
+            var file = '';
+            $('.pic-wrap').each(function(i){
+                path += $(this).attr('data-path')+',';
+                file += $(this).attr('data-file')+',';
+            });
+            path = path.slice(0,path.length-1);
+            file = file.slice(0,file.length-1);
             var req = {
                 postData:'Society/addPost',
                 data:{
                     title:title,
                     content:content,
-                    path:'',
-                    file:''
+                    path:path,
+                    file:file
                 }
             };
             $.extend(req.data,token);
@@ -127,7 +138,8 @@
 //      上传图片
         var upload_btn = $('#uploadBtn');
         upload_btn[0].addEventListener('change',function(){
-            console.log($(this).val());
+
+            /*console.log($(this).val());
 //          每次图片上传成功后，置空input的值，可以上传相同图片
             $('.upload-btn-wrap').before(
                     '<div class="pic-wrap">'+
@@ -135,7 +147,60 @@
                     '<i class="mui-icon mui-icon-minus"></i>'+
                     '</div>'
             );
-            $(this).val('');
+            $(this).val('');*/
+
+//          About/upload
+            var file_form = new FormData($('#fs-wrap')[0]);//提交表单所有数据
+
+            $.ajax({
+                type: "post",
+//                url: "http://192.168.1.111:8090/v001/About/upload",
+                url: "http://train.api.livestaring.com/v001/About/upload",
+                data: file_form,
+                processData:false,
+                contentType:false,
+                async: true,
+                datatype: "JSON",
+                beforeSend: function(){
+                    var uploading = true;
+                    console.log(uploading);
+                },
+                success: function (obj) {
+                    var data = $.parseJSON(obj);
+                    console.log(data);
+                    if (data.code == 200) {
+                        $("#token-wrap").attr({"data-file":data.data.file,"data-path":data.data.path});
+                        var img_src = 'http://192.168.1.111:8092/v001/Default/'+data.data.path+data.data.file;
+                        $('.upload-btn-wrap').before(
+                            '<div class="pic-wrap" data-path="'+data.data.path+'" data-file="'+data.data.file+'">'+
+                            '<span class="fs-pic-wrap"><img src="'+img_src+'" alt=""></span>'+
+                            '<i class="mui-icon mui-icon-minus btn-delete"></i>'+
+                            '</div>'
+                        );
+                    }else if(data.code == 300){
+                        mui.alert(data.data.message,' ');
+                        return false;
+                    }else if(data.code == 400){
+                        mui.alert(data.data.message,' ');
+                        return false;
+                    }else if(data.code == 500){
+                        mui.alert(data.data.message,' ');
+                        return false;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+
+            mui('#test_wrap').on('tap','.btn-delete',function(){
+                $(this).parent('.pic-wrap').remove();
+            });
+
+
+
         });
 
     });

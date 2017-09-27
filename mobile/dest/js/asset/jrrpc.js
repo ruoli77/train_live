@@ -20,8 +20,8 @@ jQuery.extend({
             //token:'XGUDNFU3AG0ObQNtX2EBbQtrATsBYg==',
             //channel:'201314-59bf7148'
         };
-        //var url = 'http://192.168.1.111:8090/v001/'+param.postData;
-        var url = 'http://train.api.livestaring.com/v001/'+param.postData;
+        var url = 'http://192.168.1.111:8090/v001/'+param.postData;
+        //var url = 'http://train.api.livestaring.com/v001/'+param.postData;
         param = $.extend(param.data,param_public);
         $.ajax({
             type: "post",
@@ -47,7 +47,7 @@ jQuery.extend({
                             return false;
                         } else if(response.code == 300){
                             mui.alert(response.data.message,' ',function(){
-                                //    调用安卓方法
+                                //调用安卓方法
                             });
                             if(me){
                                 me.resetload();

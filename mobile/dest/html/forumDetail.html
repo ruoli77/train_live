@@ -66,7 +66,7 @@
         $('textarea').autosize();
         iService.iosInput();
         var sid = iService.getQueryString('sid');
-        var page = 1;
+        var page = 2;
         var commentsListWrap = $('.comments-list');
 //        评论列表
         function getSubComment(page,me){
@@ -134,7 +134,6 @@
                 });
                 $('.fm-pic-wrap').html(img_html);
             }
-
 //            首次加载评论
             var com_html='';
             $.each(data.comment,function(i){
@@ -183,7 +182,9 @@
 //        回复帖子
         mui('.send-tool-wrap').on('tap','.msg-send-btn',function(){
             var content = $('textarea').val();
+            $('textarea').val('');
             if(!content){
+                mui.alert('回复内容不能为空');
                 return false;
             }
             var req = {
@@ -195,16 +196,23 @@
             };
             $.extend(req.data,token);
             $.JsonRpc(req,function(result){
-                console.log(result);
-                mui.alert(result.data.message,' ',function(){
-                    $('textarea').val("");
-                });
-
+//              成功以后放到第一条
+                /*$(
+                    '<li>'+
+                    '<span class="fl avatar" style="background: url('+result.data.avatar+') center center no-repeat; background-size: cover;"></span>'+
+                    '<div class="fl info">'+
+                    '<p>'+result.data.nickname+'</p>'+
+                    '<span>'+result.data.createtime+'</span>'+
+                    '</div>'+
+                    '<p class="content-sub">'+result.data.content+'</p>'+
+                    '</li>'
+                ).prependTo('.comments-list');*/
+              mui.toast(result.data.message);
+                setTimeout(function(){
+                    window.location.reload();
+                },2000)
             });
         });
-
-
-
     })
 </script>
 </body>

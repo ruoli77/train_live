@@ -95,8 +95,14 @@
                     forumListWrap.attr('data-page',result.data.count);
                 }
                 var data = result.data.lists;
-                $.each(data,function(i){
-                    $(
+                if(!data.length){
+                    if(me){
+                        me.resetload();
+                    }
+                    $('.dropload-noData').html('暂无数据');
+                }else {
+                    $.each(data,function(i){
+                        $(
                             '<li class="item clearfix">'+
                             '<a href="forumDetail.html?sid='+data[i].sid+'">'+
                             '<div class="avatar-wrap fl">'+
@@ -112,10 +118,11 @@
                             '</div>'+
                             '</a>'+
                             '</li>'
-                    ).appendTo('#gr-forum-list');
-                });
-                if(me){
-                    me.resetload();
+                        ).appendTo('#gr-forum-list');
+                    });
+                    if(me){
+                        me.resetload();
+                    }
                 }
             },me);
         }

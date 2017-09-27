@@ -83,6 +83,11 @@
         $.JsonRpc(param,function(result){
             console.log(result);
             var data = result.data;
+            if(!data.top.length){
+                $("#total-num").html(0);
+                $('.child-list-wrap').html('<p class="null-wrap">暂无数据</p>');
+                return false;
+            }
             $("#total-num").html(data.top[0].total);
             $.each(data.top,function(i){
                 $(

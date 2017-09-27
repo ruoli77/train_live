@@ -53,7 +53,7 @@
         mui.init();
         var appParam = iService.getAppParam();
 
-        function exitAnswer(e){
+        function exitEdit(e){
             e.preventDefault();
             var btnArray = ['退出', '继续答题'];
             mui.confirm('选择退出之前所答题目将全部清除，你确定退出吗', '退出答题', btnArray, function(e) {
@@ -61,13 +61,17 @@
 //                    继续答题
                 } else {
 //                    回到app
-//                    回到上一页
+                    if(iService.getUserAgent.isiOS){
+                        FinishPaper();
+                    }else {
+                        h5button.FinishPaper();
+                    }
                 }
             });
         }
-        document.getElementById('btn-exit').addEventListener('tap',exitAnswer);
-        $(".back-btn").on('click',exitAnswer);
 
+        document.getElementById('btn-exit').addEventListener('tap',exitEdit);
+        $(".back-btn").on('click',exitEdit);
 
         //        选择答案
         mui('.questions-wrap').on('tap','.option-item',function(){
@@ -97,8 +101,8 @@
 //                console.log(result);
                 if(result.data.answer){
                     // 跳到答题卡
-                   /* window.location.href = 'result.html';
-                    return false;*/
+                    window.location.href = 'result.html?token='+appParam.token+'&llid='+appParam.llid+'';
+                    return false;
                 }
                 question_arr.push(result.data.lists[0]);
                 var nowpage = btn_next.attr('now-page');
