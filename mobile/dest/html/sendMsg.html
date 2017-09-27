@@ -120,9 +120,9 @@
             distance: 50,
             threshold: "",
             loadUpFn: function(me){
+                page += 1;
                 if(page<=Math.ceil(smWrap.attr('data-page')/3)){
                     getMsgList(page,me);
-                    page += 1;
                 }else {
                     me.lock();//没有更多数据
                     me.noData();//没有更多数据
