@@ -16,7 +16,7 @@
 </head>
 <body>
 <div id="back-btn-wrap">
-    <a class="back-btn" href="javascript:history.go(-1)"></a>需求发布
+    <a class="back-btn" href="javascript:void(0)"></a>需求发布
 </div>
 <div class="content-main clearfix" id="sm-wrap">
     <div class="sm-msg-wrap">
@@ -65,6 +65,19 @@
 <script>
     $(function(){
         mui.init();
+        var flag = iService.getQueryString('flag');
+        $('.back-btn').on('click',function(){
+            if(flag){
+                if(iService.getUserAgent.isiOS){
+                    webBack();
+                }else {
+                    h5button.webBack();
+                }
+            }else {
+                window.history.go(-1)
+            }
+        });
+
         var token = iService.getAppParam();
         $('textarea').autosize();
         iService.iosInput();
@@ -130,7 +143,6 @@
                 }
             }
         });
-
 
         mui('.send-tool-wrap').on('tap','.msg-send-btn',function(){
             var content = $('textarea').val();

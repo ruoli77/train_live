@@ -13,7 +13,7 @@
     <include file="public@head" />
     <script src="../js/asset/sdk/TcPlayer-2.2.0.js"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-    <link rel="stylesheet" href="../js/asset/swiper/swiper.min.css">
+    <!--<link rel="stylesheet" href="../js/asset/swiper/swiper.min.css">-->
     <style>
         *{
             margin: 0;
@@ -27,13 +27,13 @@
             user-select:none;
         }
         body{
-            color: #00a2d4;
+            /*color: #00a2d4;*/
             padding-bottom: 0;
         }
         #play_video{
             /*position: relative;*/
         }
-        #top{
+        .top{
             width: 100%;
             position: absolute;
             top: 26px;
@@ -45,32 +45,32 @@
             -webkit-box-sizing:border-box; /* Safari */
             z-index: 2;
         }
-        #host-avatar{
+        .host-avatar{
             width: 40px;
             height: 40px;
             border-radius: 20px;
             /*border: 1px solid #bebebe;*/
         }
-        #top .info{
+        .top .info{
             display: inline-block;
             vertical-align: middle;
             color: #fff;
             margin-left: 4px;
         }
-        #top .info #host-name{
+        .top .info .host-name{
             display: block;
         }
-        #top .host-sid {
+        .top .host-sid {
             float: right;
             background: rgba(0,0,0,0.3);
             color: #fff;
             padding: 4px 8px;
             border-radius: 5px;
         }
-        #play_video .vcp-playing,#play_video .vcp-player{
+        .comments-wrap .vcp-playing,.comments-wrap .vcp-player{
             margin: 0 auto;
         }
-        #play_video .vcp-player{
+        .comments-wrap .vcp-player{
             /*z-index: 3;*/
 
         }
@@ -96,7 +96,7 @@
             margin: -40px 0 0 -40px;
             cursor: pointer;
             background-position: -1px -81px;
-            background-image: url("__TMPL__public/assets/img/sprite_icon.png");
+            background-image: url("../img/sprite_icon.png");
             background-repeat: no-repeat;
             z-index: 1000;
             display: none;
@@ -168,7 +168,6 @@
             color: #fff;
         }
 
-
         /*粉丝等级图标引入*/
         /*用户等级图标*/
         .user_leval_mark{
@@ -238,12 +237,12 @@
         .playback-wrap .item:last-child{
             margin-right: 8px;
         }
-       /* input[type=text]{
-            height: 30px; line-height: 30px; position: absolute; bottom: 10px;left: 0; right: 0; z-index: 100000000000000;
-            border: 1px solid red;
-        }*/
+        /* input[type=text]{
+             height: 30px; line-height: 30px; position: absolute; bottom: 10px;left: 0; right: 0; z-index: 100000000000000;
+             border: 1px solid red;
+         }*/
 
-        #share-title{
+        .share-title{
             width: 100%;
             text-align: center;
             background: rgba(0,0,0,0.3);
@@ -289,7 +288,6 @@
             padding: 10px 100px 10px 10px;
             border: none;
             background: none;
-
         }
         .footer #js-talk-ipt-wrap #js-send-talk-btn{
             width: 80px;
@@ -303,7 +301,6 @@
             transform: translateY(-50%);
             -webkit-transform: translateY(-50%);
             z-index: 2;
-
         }
         #video_sms_list{
             padding: 4px 0;
@@ -332,7 +329,6 @@
         }
 
         .playback-tips-wrap .back-img{
-            height: 100%;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -352,7 +348,6 @@
             background: rgba(0,0,0,0.5);
             z-index: 2;
         }
-
         .playback-tips-wrap .back-tips-text{
             width: 100%;
             height: 100%;
@@ -383,6 +378,44 @@
         }
 
 
+        .playback-tips-wrap p.teach{
+            text-align: center;
+        }
+        .playback-tips-wrap h3{
+            text-align: center;
+            margin: 26px 0;
+            font-weight: 200;
+            font-size: 24px;
+        }
+        .playback-tips-wrap img{
+            width: 80px;
+            height: 80px;
+            border: 1px solid #bbb;
+            border-radius: 50%;
+            display: block;
+            margin: 80px auto 20px;
+        }
+        .back-info-wrap{
+            display: flex;
+            display: -webkit-flex;
+        }
+        .back-info-wrap div.item{
+            flex:1;
+            -webkit-flex:1;
+            width: 80px;
+            height: 80px;
+        }
+        .back-info-wrap div.item p.title{
+            font-size: 14px;
+            text-align: center;
+        }
+        .back-info-wrap div.item p.content{
+            font-size: 18px;
+            font-family: 'Arial';
+            text-align: center;
+            margin: 20px 0 8px;
+        }
+
     </style>
     <cross-domain-policy>
         <allow-access-from domain="*.qq.com" secure="false"/>
@@ -393,97 +426,105 @@
     <!--15012195369338  直播状态-->
     <!--15012195236149  直播结束-->
     <!--14972638689979  回放状态-->
-    <if condition="$code eq 10">
-        <div id="play_video" style="width:100%; overflow: hidden;">
-            <h3 id="share-title" style="">
-                CABRIDA
-            </h3>
-            <section id="top">
-                <div class="top-left-wrap">
-                    <img id="host-avatar" src={$star.u_avatar}" >
-                    <article class="info">
-                        <span id="host-name">{$star.s_name}</span>
-                        <span class="fans-num">{$star.l_viewing}</span>在线
-                    </article>
-                </div>
-                <span class="host-sid">LSID：{$star.s_udid}</span>
-            </section>
-            <aside id="shopping-wrap" style="display: none;">
-                <foreach name="mall" item="vo">
-                    <a href="{$vo.a_url}"><img src="{$vo.a_image}" alt="{$vo.a_title}"></a>
-                </foreach>
-            </aside>
-            <div class="comments-wrap">
-                <ul id="video_sms_list" class="comments-list-wrap">
 
-                </ul>
+    <!--直播wrap-->
+    <div id="play_video" class="common-wrap" style="width:100%; overflow: hidden; display: none; ">
+        <h3 class="share-title" style="">
+            liveTraining
+        </h3>
+        <section class="top">
+            <div class="top-left-wrap">
+                <img class="host-avatar" src='' >
+                <article class="info">
+                    <span class="host-name">主播名字</span>
+                    <span class="fans-num">在线人数</span>在线
+                </article>
             </div>
-            <span class="play-btn"></span>
-            <div class="footer">
-                <div class="tool-wrap">
-                    <span class="talk talk-click" id="js-start-talk"></span>
-                </div>
-                <div class="talk-box" id="js-talk-ipt-wrap" style="display: none;">
-                    <input type="text" id="js-talk-ipt" class="talk-input" placeholder="点击这输入文字" value="" maxlength="200"><a href="javascript:;" class="talk-btn js-talk-btn" id="js-send-talk-btn">发送</a>
-                </div>
-            </div>
-        </div>
-        <elseif  condition="$code eq 20"/>
-        <div id="play_video" style="width:100%; overflow: hidden;">
-            <h3 id="share-title" style="">
-                CABRIDA
-            </h3>
-            <section id="top">
-                <div class="top-left-wrap">
-                    <img id="host-avatar" src={$star.u_avatar}" >
-                    <article class="info">
-                        <span id="host-name">{$star.s_name}</span>
-                        观看人数：<span class="fans-num">{$star.l_viewing}</span>
-                    </article>
-                </div>
-                <span class="host-sid">LSID：{$star.s_udid}</span>
-            </section>
-            <span class="play-btn"></span>
+            <span class="host-sid">主播id号</span>
+        </section>
+        <!-- //广告图片
+        <aside id="shopping-wrap" style="display: none;">
+            <foreach name="mall" item="vo">
+                <a href="{$vo.a_url}"><img src="{$vo.a_image}" alt="{$vo.a_title}"></a>
+            </foreach>
+        </aside>-->
 
+        <!--聊天内容-->
+        <div class="comments-wrap">
+            <ul id="video_sms_list" class="comments-list-wrap">
+
+            </ul>
         </div>
-        <else />
-        <div class="playback-tips-wrap">
-            <img class="back-img" src="__TMPL__public/assets/img/cabrida_pic.jpg" alt="">
-            <span class="opacity-bg"></span>
-            <div class="back-tips-text">
-                <h1>直播已结束，回放正在生成</h1>
-                <!--<p style="text-align: center;color: #0089d4; line-height: 24px; "><a href="{$url}" target="_blank" style="text-decoration: underline;">登录查看更多</a></p>-->
+        <span class="play-btn"></span>
+        <!--底部聊天输入框-->
+        <div class="footer">
+            <div class="tool-wrap">
+                <span class="talk talk-click" id="js-start-talk"></span>
             </div>
-        </div>
-    </if>
-    <!--{:dump($star)}
-        {:dump($url)}-->
-    <!--swiper-->
-    <div class="swiper-container playback-container"  style="display: none;">
-        <div class="swiper-wrapper playback-wrap">
-            <div class="swiper-slide">
-                <a class="item" href="" style="background-image: url('__TMPL__public/assets/img/test_f.jpg')"></a>
+            <div class="talk-box" id="js-talk-ipt-wrap" style="display: none;">
+                <input type="text" id="js-talk-ipt" class="talk-input" placeholder="点击这输入文字" value="" maxlength="200"><a href="javascript:;" class="talk-btn js-talk-btn" id="js-send-talk-btn">发送</a>
             </div>
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide">查看更多</div>
         </div>
     </div>
 
-    <!--<div style="height: 80px;"></div>-->
+    <!--回放wrap-->
+    <div id="back_video" class="common-wrap" style="width:100%; overflow: hidden; display: none;">
+        <h3 class="share-title" style="">
+            liveTraining
+        </h3>
+        <section class="top">
+            <div class="top-left-wrap">
+                <img class="host-avatar" src='' />
+                <article class="info">
+                    <span class="host-name"></span>
+                    观看人数：<span class="fans-num"></span>
+                </article>
+            </div>
+            <span class="host-sid">LSID：</span>
+        </section>
+        <span class="play-btn"></span>
+    </div>
+
+    <!--直播结束页面展示-->
+    <div class="playback-tips-wrap" style="">
+        <!--<img class="back-img" src="../img/logo.png" alt="">
+        <span class="opacity-bg"></span>
+        <div class="back-tips-text">
+            <h1>直播已结束，回放正在生成</h1>
+        </div>-->
+
+        <img class="avatar" src="../img/logo.png" />
+        <p class="teach">人事培训：刘老师</p>
+        <h3>直播已结束</h3>
+        <div class="back-info-wrap">
+            <div class="item">
+                <p class="content">02:28:30</p>
+                <p class="title">直播时长</p>
+            </div>
+            <div class="item">
+                <p class="content">188</p>
+                <p class="title">观看人数</p>
+            </div>
+        </div>
+
+    </div>
 
 </div>
 
-<include file="public@footer" />
 <script src="../js/asset/jquery.min.js"></script>
-<script src="../js/asset/swiper/swiper.min.js"></script>
+<!--<script src="../js/asset/swiper/swiper.min.js"></script>-->
 <script src="../js/asset/common.js"></script>
 <script src="../js/asset/sdk/webim.js"></script>
 <script src="../js/asset/sdk/json2.js"></script>
+<script src="../js/asset/jquery.min.js"></script>
+<script src="../js/asset/common.js"></script>
+<script src="../js/asset/mui.min.js"></script>
+<script src="../js/asset/jrrpc.js"></script>
+
 <script type="text/javascript">
+
     function getLogInfo (){
+        //调用后台接口得到用户im信息以及视频状态
         var loginInfo = {
             'sdkAppID': "", //用户所属应用id,必填
             'appIDAt3rd': "", //用户所属应用id，必填
@@ -493,58 +534,134 @@
             'userSig': "", //当前用户身份凭证，必须是字符串类型，选填
             'headurl': "" //当前用户默认头像，选填
         };
-        <if condition="$code eq 10">
-            loginInfo.sdkAppID = "{$user.sdkAppID}";
-            loginInfo.appIDAt3rd = "{$user.sdkAppID}";
-            loginInfo.accountType = "{$user.accountType}";
-            loginInfo.identifier = "{$user.identifier}";
-            loginInfo.identifierNick = "{$user.identifierNick}";
-            loginInfo.userSig = "{$user.userSig}";
-            loginInfo.headurl = "{$user.headurl}";
-            return loginInfo;
-            <elseif  condition="$code eq 20"/>
-            <else />
-        </if>
         return loginInfo;
     }
+
 </script>
 <script src="../js/asset/im_visit.js"></script>
 <script>
     $(function(){
         var live_flag = true, //类型：直播还是回放
-            coverpic_src = "", //封面路径
-            live_url = '',    //移动端视频格式
-            live_flv_url = '',//PC端观看视频格式为MP4
-            shopping_wrap = $("#shopping-wrap"),//右侧广告
-            play_btn = $(".play-btn"),
-            tool_footer = $(".footer"),
-            btn_talk = $("#js-start-talk"), //聊天图标
-            talk_wrap = $("#js-talk-ipt-wrap"),//聊天容器
-            chat_input =  $("#js-talk-ipt"),//聊天input
-            tool_wrap = $(".tool-wrap"), //图标容器
-            btn_send = $("#js-send-talk-btn"), //发消息按钮
-            flag = IsPC(), //true为PC端，false为手机端
-            live_width = 0,
-            live_height = 0,
-            screen_height = window.screen.height,//屏幕高度
-            andr_height = screen_height - 20, //安卓手机视频高度设为满屏减去20
-            inner_height = window.innerHeight,//窗口的文档显示区的高度
-            video_height = inner_height,
-            u = navigator.userAgent,
-            isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
-            isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+                coverpic_src = "", //封面路径
+                live_url = '',    //移动端视频格式
+                live_flv_url = '',//PC端观看视频格式为MP4
+                shopping_wrap = $("#shopping-wrap"),//右侧广告
+                play_btn = $(".play-btn"),
+                tool_footer = $(".footer"),
+                btn_talk = $("#js-start-talk"), //聊天图标
+                talk_wrap = $("#js-talk-ipt-wrap"),//聊天容器
+                chat_input =  $("#js-talk-ipt"),//聊天input
+                tool_wrap = $(".tool-wrap"), //图标容器
+                btn_send = $("#js-send-talk-btn"), //发消息按钮
+                flag = IsPC(), //true为PC端，false为手机端
+                live_width = 0,
+                live_height = 0,
+                screen_height = window.screen.height,//屏幕高度
+                andr_height = screen_height - 20, //安卓手机视频高度设为满屏减去20
+                inner_height = window.innerHeight,//窗口的文档显示区的高度
+                video_height = inner_height,
+                u = navigator.userAgent,
+                isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
+                isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        function IsPC() {
+            var userAgentInfo = navigator.userAgent;
+            var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+            var flag = true;
+            for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
+        }
+
+
+        var token = iService.getQueryString('token');
+        var llid = iService.getQueryString('llid');
+
+        var param = {
+            token:token,
+            llid:llid,
+            status:'1'
+        };
+        $.JsonRpc(param,function(result){
+            console.log(result);
+            live_url = result.data.url[2];
+            live_flv_url = result.data.url[1];
+            if(flag){
+                $(".main").width(500).css({"position":"relative","overflow":"hidden"});
+                live_width =500;
+                live_height = live_width*16/9;
+            }else {
+                live_flv_url = "";
+                live_width = window.screen.width;
+                live_height = Math.ceil(live_width*16/9);
+            }
+
+            var player =  new TcPlayer('play_video', {
+                "m3u8": live_url,
+                "flv":  live_flv_url, //增加了一个flv的播放地址，用于PC平台的播放
+                "autoplay" : false,      //iOS下safari浏览器是不开放这个能力的
+                "coverpic" : {"style": "cover", "src": coverpic_src},
+                "controls":"none",
+                "live": live_flag,
+                "x5_player":true,
+                "x5_type":"h5",
+                "x5_fullscreen":true,
+                "width" :  live_width,
+                "height" : video_height,
+                listener: function (msg) {
+                    // console.log('listener',msg);
+                    if(msg.type == 'error'){
+                        window.setTimeout(function(){
+//                            player.load();//进行重连
+                        },5000);
+                    }
+                    var player_vcp = $(".vcp-player"),
+                            player_video = $("video");
+                    function playToggle (){
+                        if(player.playing()){
+                            play_btn.hide();
+                            tool_footer.show();
+                            shopping_wrap.show();
+                            if(isAndroid){
+                                player_vcp.attr("style",'width:'+live_width+"px!important;"+'height:'+andr_height+"px!important;");
+                                player_video.attr("style",'width:'+live_width+"px!important;"+'height:'+andr_height+"px!important;");
+                            }
+                        }else {
+                            shopping_wrap.hide();
+                            tool_footer.hide();
+                            play_btn.show();
+                            if(isAndroid){
+                                player_vcp.attr("style",'width:'+live_width+"px!important;"+'height:'+video_height+"px!important;");
+                                player_video.attr("style",'width:'+live_width+"px!important;"+'height:'+video_height+"px!important;");
+                            }
+                        }
+                    }
+                    playToggle();
+                    play_btn.off("click").on("click",function(){
+                        player.play();
+                    });
+                }
+            });
+        });
+
+        return false;
 
         //10 正在直播 20回放  else是停止
-        <if condition="$code eq 10">
-            coverpic_src = "{$star.s_image}";
-            live_url = "{$url[2]}";
-            live_flv_url = "{$url[1]}";
-            <elseif  condition="$code eq 20"/>
-            coverpic_src = "{$star.s_image}";
-            live_flag = false;
-            live_url = "{$url['transcodeList'][2]['url']}";
-            <else />
-        </if>;
+        /*<if condition="$code eq 10">
+         coverpic_src = "{$star.s_image}";
+         live_url = "{$url[2]}";
+         live_flv_url = "{$url[1]}";
+         <elseif  condition="$code eq 20"/>
+         coverpic_src = "{$star.s_image}";
+         live_flag = false;
+         live_url = "{$url['transcodeList'][2]['url']}";
+         <else />
+         </if>;*/
 
         //回放滑动列表  仿照快手
         /* var swiper = new Swiper('.swiper-container', {
@@ -556,6 +673,9 @@
          grabCursor: false,
          momentumBounce:0
          });*/
+
+
+
         btn_talk.on("click",function(){
             tool_wrap.hide();
             talk_wrap.show();

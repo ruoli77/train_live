@@ -51,16 +51,18 @@
         #test_wrap div.pic-wrap:nth-child(4n+0),#test_wrap span.upload-btn-wrap:nth-child(4n+0){
             margin-right: 0;
         }
-
-        #test_wrap i.mui-icon-minus:before {
-            content: '\e410';
+        #test_wrap i.btn-delete{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
             position: absolute;
-            top: -12px;
-            right: -12px;
+            top: -10px;
+            right: -10px;
             z-index: 1;
-            color: red;
-            font-weight: bold;
+            background: url("../img/icon-delete.png") no-repeat;
+            background-size: cover;
         }
+
 
     </style>
 
@@ -138,7 +140,6 @@
 //      上传图片
         var upload_btn = $('#uploadBtn');
         upload_btn[0].addEventListener('change',function(){
-
             /*console.log($(this).val());
 //          每次图片上传成功后，置空input的值，可以上传相同图片
             $('.upload-btn-wrap').before(
@@ -170,11 +171,12 @@
                     console.log(data);
                     if (data.code == 200) {
                         $("#token-wrap").attr({"data-file":data.data.file,"data-path":data.data.path});
-                        var img_src = 'http://192.168.1.111:8092/v001/Default/'+data.data.path+data.data.file;
+//                      var img_src = 'http://192.168.1.111:8092/v001/Default/'+data.data.path+data.data.file;
+                        var img_src = 'http://train.img.livestaring.com/v001/Default/'+data.data.path+data.data.file;
                         $('.upload-btn-wrap').before(
                             '<div class="pic-wrap" data-path="'+data.data.path+'" data-file="'+data.data.file+'">'+
                             '<span class="fs-pic-wrap"><img src="'+img_src+'" alt=""></span>'+
-                            '<i class="mui-icon mui-icon-minus btn-delete"></i>'+
+                            '<i class="btn-delete"></i>'+
                             '</div>'
                         );
                     }else if(data.code == 300){
@@ -199,10 +201,7 @@
                 $(this).parent('.pic-wrap').remove();
             });
 
-
-
         });
-
     });
 </script>
 </body>

@@ -123,9 +123,11 @@ button:enabled:active{
 }
 #back-btn-wrap .back-btn{
     position: absolute;
+    width: 44px;/*no*/
     height: 44px;/*no*/
     line-height: 44px;/*no*/
     left: 0;
+    /*background: url("../img/icon-back.png") center center no-repeat;*/
 }
 #back-btn-wrap .back-btn:before{
     line-height: 44px;/*no*/
@@ -134,15 +136,21 @@ button:enabled:active{
     height: auto;
     position: absolute;
     top: 50%;
-    left: 0;/*px*/
+    left: 20px;/*no*/
     display: inline-block;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%) rotate(-45deg);
+    transform: translateY(-50%) rotate(-45deg);
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
     color: #fff;
     font-weight: 200;
-    content: '\e582';
+    /*content: '\e582';*/
+    content: '';
+    width: 30px;/*px*/
+    height: 30px;/*px*/
+    border-top: 1px solid #fff;/*no*/
+    border-left: 1px solid #fff;/*no*/
+
 }
 .content-main{
     padding-top: 64px;/*no*/
@@ -513,6 +521,15 @@ p.option-text{
     border: 1px solid #bec2c9;/*no*/
     border-radius: 40%;/*no*/
     background-size: cover!important;
+}
+.gr-bot-wrap .member-container h4{
+    font-weight: 200;
+    line-height: 36px;/*px*/
+    font-size: 24px;/*px*/
+}
+.gr-bot-wrap .member-container span{
+    line-height: 40px;/*px*/
+    font-size: 28px;/*px*/
 }
 .swiper-slide{
     display: inline-block;
@@ -945,12 +962,6 @@ p.content-sub{
     clear: both;
     margin-top: 10px;/*no*/
 }
-
-
-
-
-
-
 
 
 

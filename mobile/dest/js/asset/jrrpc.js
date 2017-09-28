@@ -18,6 +18,7 @@ jQuery.extend({
         var param_public = {
             //token:'W2JVbVE3UzYKYQFkUGBXMg5kAjMHYg==',
             //token:'XGUDNFU3AG0ObQNtX2EBbQtrATsBYg==',
+            //token:'CjMDNFs5Uj8ObQJsBDoNYQBgAjgIaw==',
             //channel:'201314-59bf7148'
         };
         var url = 'http://192.168.1.111:8090/v001/'+param.postData;

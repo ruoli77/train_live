@@ -142,10 +142,10 @@ var iService = function(){
             isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
         if(isiOS){
             $(".send-tool-wrap textarea").focus(function(){
-                $(".send-tool-wrap").css({'bottom':'60%'})
+                $(".send-tool-wrap").css({'bottom':'auto','top':'64px'});
             });
             $(".send-tool-wrap textarea").blur(function(){
-                $(".send-tool-wrap").css({'bottom':'0'})
+                $(".send-tool-wrap").css({'bottom':'0','top':'auto'});
             });
         }
     }

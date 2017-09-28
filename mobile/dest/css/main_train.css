@@ -228,9 +228,11 @@ button:enabled:active {
 
 #back-btn-wrap .back-btn {
   position: absolute;
+  width: 44px;
   height: 44px;
   line-height: 44px;
   left: 0;
+  /*background: url("../img/icon-back.png") center center no-repeat;*/
 }
 
 #back-btn-wrap .back-btn:before {
@@ -239,28 +241,36 @@ button:enabled:active {
   height: auto;
   position: absolute;
   top: 50%;
-  left: 0;
-  /*px*/
+  left: 20px;
   display: inline-block;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%) rotate(-45deg);
+  transform: translateY(-50%) rotate(-45deg);
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   color: #fff;
   font-weight: 200;
-  content: '\e582';
+  /*content: '\e582';*/
+  content: '';
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
 }
 
 [data-dpr="1"] #back-btn-wrap .back-btn:before {
   font-size: 30px;
+  width: 15px;
+  height: 15px;
 }
 
 [data-dpr="2"] #back-btn-wrap .back-btn:before {
   font-size: 60px;
+  width: 30px;
+  height: 30px;
 }
 
 [data-dpr="3"] #back-btn-wrap .back-btn:before {
   font-size: 90px;
+  width: 45px;
+  height: 45px;
 }
 
 .content-main {
@@ -1063,6 +1073,40 @@ p.option-text {
 [data-dpr="3"] .gr-bot-wrap .member-container a {
   width: 132px;
   height: 132px;
+}
+
+.gr-bot-wrap .member-container h4 {
+  font-weight: 200;
+}
+
+[data-dpr="1"] .gr-bot-wrap .member-container h4 {
+  line-height: 18px;
+  font-size: 12px;
+}
+
+[data-dpr="2"] .gr-bot-wrap .member-container h4 {
+  line-height: 36px;
+  font-size: 24px;
+}
+
+[data-dpr="3"] .gr-bot-wrap .member-container h4 {
+  line-height: 54px;
+  font-size: 36px;
+}
+
+[data-dpr="1"] .gr-bot-wrap .member-container span {
+  line-height: 20px;
+  font-size: 14px;
+}
+
+[data-dpr="2"] .gr-bot-wrap .member-container span {
+  line-height: 40px;
+  font-size: 28px;
+}
+
+[data-dpr="3"] .gr-bot-wrap .member-container span {
+  line-height: 60px;
+  font-size: 42px;
 }
 
 .swiper-slide {
